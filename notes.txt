@@ -1,0 +1,3 @@
+Remove array from a single object
+
+db.devices.update({ _id: ObjectId("603cfc836e5d16221cd30d50")}, {$set: {'data': []}})
