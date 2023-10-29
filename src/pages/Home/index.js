@@ -4,9 +4,11 @@ import {isMobile} from 'react-device-detect';
 import {Row, Col} from 'react-bootstrap';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
-import seattleSpursLogo from '../seattle-spurs-logo.png'
-import spursLogo from '../spursLogo.png'
+import sonny from '../../photos/Sonny.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
+import {Button} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { Link } from "react-router-dom";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2luc3kzMDAwIiwiYSI6ImNsb2Frc2llajAxMDMyamxpcTV4M2twaTAifQ.4EwOW1iEmaH8bpj1fB0kVg'
 
@@ -18,12 +20,7 @@ function Home() {
 
     const [show, setShow] = useState(true);
     const [windowSize, setWindowSize] = useState(getWindowSize());
-    
-    const mapContainer = useRef(null);
-    const map = useRef(null);
-    const [lat, setLat] = useState(47.676340);
-    const [lng, setLng] = useState(-122.354010);
-    const [zoom, setZoom] = useState(12);
+
 
     useEffect(() => {
         function handleWindowResize() {
@@ -37,65 +34,68 @@ function Home() {
         };
       }, []);
 
-    useEffect(() => {
-        map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [lng, lat],
-        zoom: zoom,
-        hash: true
-        });
-
-        const el = document.createElement('div');
-        const width = 30
-        const height = 62
-        el.className = 'marker';
-        el.style.backgroundImage = spursLogo;
-        el.style.width = `${width}px`;
-        el.style.height = `${height}px`;
-        el.style.backgroundSize = '100%';
-
-        const marker = new mapboxgl.Marker(el)
-        .setLngLat([-122.354010,47.676340])
-        .addTo(map.current)
-        .setPopup(
-            new mapboxgl.Popup({ offset: 25 }) // add popups
-              .setHTML(
-                `<a href="https://www.google.com/maps/place/The+Whit's+End/@47.6763205,-122.3539848,15z/data=!4m2!3m1!1s0x0:0x4e7c15c4fabfefa2?sa=X&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAhbEAA&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAh1EAg" target="_blank"><p className='markerText' style="margin-bottom: 0;">The Whit's End</p></a>`
-              )
-          );
-
-        map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
-    });
-
     const opacityVariants = {
     nothing: {opacity: 0, transition: {duration: 1}},
     filled: {opacity: 1, transition: {duration: 1.4}}
     }
+
+    const ThemedButton = styled(Button) ({
+        color: '#132257',
+        backgroundColor: '#ffffff',
+        fontFamily:'totReg',
+        '&:hover': {
+          backgroundColor: '#756A61',
+          color: '#ffffff'
+        },
+      });
     
     return (
-        <motion.div
-        exit={{opacity: 0, transition: {duration: 1}}}
-        initial={{opacity: 0}}
-        animate={{opacity: 1, transition: {duration: 1}}}
-        >
+        <motion.div>
             <Row style={{minHeight:`${(windowSize.innerHeight-102)*.005}px`, backgroundColor:'#ffffff'}}>
 
             </Row>
             <Row style={{minHeight:`${(windowSize.innerHeight-102)*.99}px`, backgroundColor:'#132257'}}>
                 <Col className='homeCol'>
-                    <div style={{height:'50%', width:'80%', textAlign:'center', alignContent:'center',alignItems:'center'}}>
-                        <p className='homeText'>Welcome to the home of Seattle Spurs, the Official Tottenham Hotspur Supporters Club in the Puget Sound region since 2014!
-Whether you're a seasoned Spurs supporter or are just now falling in love with Lilywhite - we'd love to welcome you to our club.
-You'll find us at the Whit's End Bar in Seattle's Phinney Ridge neighborhood for all live match viewings - no matter the hour. All ages, all people, and all dogs allowed!
-Be sure to follow us on Twitter and Facebook for all the latest updates!</p>
-                    </div>
+                    <motion.div
+                    exit={{opacity: 1, x: -1000, y:200, transition: {duration: 1}}}
+                    initial={{opacity: 1, x: windowSize.innerWidth*1.5,y: windowSize.innerHeight*-.2}}
+                    animate={{opacity: 1, x: 0, y:0, transition: {duration: 1, ease: 'easeOut'}}}
+                    >
+                        <img src={sonny} height={windowSize.innerHeight*.8} alt="Sonny"></img>
+                    </motion.div>
                 </Col>
-                <Col className='homeCol'>
-                    <a href="https://www.google.com/maps/place/The+Whit's+End/@47.6763205,-122.3539848,15z/data=!4m2!3m1!1s0x0:0x4e7c15c4fabfefa2?sa=X&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAhbEAA&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAh1EAg" target="_blank" style={{textDecorationColor:"#ffffff"}}>
-                        <p className='whitsText'>Our Home: The Whit's End</p>
-                    </a>
-                    <div ref={mapContainer} style={{height:'50%', width:'80%'}}/>
+                <Col className='homeCol homeColRight'>
+                    <Row>
+                        <p>
+                            <motion.div
+                            exit={{opacity: 1, x: 200, transition: {duration: 1}}}
+                            initial={{opacity: 0, y: 200}}
+                            animate={{opacity: 1, y: 0, transition: {duration: .7, ease: 'easeOut',delay: .3}}}>
+                                <span className="welcomeTo" style={{fontSize:windowSize.innerWidth/35}}>Welcome To:</span>
+                            </motion.div>
+                            <motion.div
+                            exit={{opacity: 1, x: 200, transition: {duration: 1}}}
+                            initial={{opacity: 0, y: 200}}
+                            animate={{opacity: 1, y: 0, transition: {duration: .6, ease: 'easeOut',delay: .6}}}>
+                                <span className="homeName" style={{fontSize:windowSize.innerWidth/16}}>Seattle Spurs</span>
+                            </motion.div>
+                        </p>
+                    </Row>
+                    <motion.Row style={{width: '100%',justifyContent: 'space-between',display: 'flex', paddingTop:'5%'}}
+                    exit={{opacity: 1, x: 200, transition: {duration: 1}}}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1, transition: {duration: 1,delay: 1.2}}}>
+                        <Col style={{alignItems:'center', justifyContent: 'center',display:'flex'}}>
+                            <Link to="/about">
+                                <ThemedButton variant="contained" style={{fontSize:windowSize.innerWidth/70}}>Learn More</ThemedButton>
+                            </Link>
+                        </Col>
+                        <Col style={{alignItems:'center', justifyContent: 'center',display:'flex'}}>
+                            <Link to="/matches">
+                                <ThemedButton variant="contained" style={{fontSize:windowSize.innerWidth/70}}>Match Schedule</ThemedButton> 
+                            </Link>
+                        </Col>
+                    </motion.Row>
                 </Col>
             </Row>
         </motion.div>

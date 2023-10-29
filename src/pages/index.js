@@ -12,8 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Navbar as BSNavbar, Nav } from 'react-bootstrap'
 import {isMobile} from 'react-device-detect';
-import spursRainier from './spurs-rainier.png';
-import spursRainierTaupe from './spurs-rainier-taupe.png';
+import spursRainier from '../photos/spurs-rainier.png';
+import spursRainierTaupe from '../photos/spurs-rainier-taupe.png';
 
 //this is what creates the app in full. It creates the navbar, which connects all the pages together then creates the app itself which has all the routes to all the pages.
 
@@ -41,14 +41,14 @@ function Navbar(props) {
                 <>
                     <Nav className="mr-auto">
                         <NavbarLink to="/about">About</NavbarLink>
-                        <NavbarLink to="/portfolio">Matches</NavbarLink>
-                        <NavbarLink to="/contact">Gallery</NavbarLink>
+                        <NavbarLink to="/matches">Matches</NavbarLink>
+                        <NavbarLink to="/gallery">Gallery</NavbarLink>
                         <NavbarLink to="/contact">Contact</NavbarLink>
                     </Nav>
                     <Nav>
                         <a className="nav-item nav-link" href={"https://www.facebook.com/seattlespurs"} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faFacebook} size="2x"/></a>
-                        <a className="nav-item nav-link" href={"https://www.instagram.com/seattlespursofficial/"} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faTwitter} size="2x"/></a>
-                        <a className="nav-item nav-link" href={"https://twitter.com/seattlespurs"} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faInstagram} size="2x"/></a>
+                        <a className="nav-item nav-link" href={"https://twitter.com/seattlespurs"} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faTwitter} size="2x"/></a>
+                        <a className="nav-item nav-link" href={"https://www.instagram.com/seattlespursofficial/"} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faInstagram} size="2x"/></a>
                     </Nav>
                 </>
             </BSNavbar.Collapse>
@@ -73,34 +73,6 @@ function App() {
             <AnimatedRoutes />
         </div>
     )
-
-    /*
-    return (
-        <Router>
-                <Switch>
-                    <Route exact path="/">
-                        <Navbar className="primaryHome" />
-                        <Home />
-                    </Route>
-                    <Route exact path="/experience">
-                        <Navbar />
-                        <Experience />
-                    </Route>
-                    <Route exact path="/portfolio">
-                        <Navbar />
-                        <Portfolio />
-                    </Route>
-                    <Route exact path="/contact">
-                        <Navbar />
-                        <Contact />
-                    </Route>
-                    <Route exact path="/resume">
-                        <Navbar />
-                        <Resume />
-                    </Route>
-                </Switch>
-        </Router>
-    )*/
 }
 
 export default App

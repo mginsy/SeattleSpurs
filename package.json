@@ -21,7 +21,8 @@
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.1.6",
     "react-router-dom": "^6.17.0",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "react-social-media-embed": "^2.3.6"
   },
   "scripts": {
     "start": "react-scripts start",

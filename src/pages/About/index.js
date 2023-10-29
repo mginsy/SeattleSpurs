@@ -4,8 +4,9 @@ import {isMobile} from 'react-device-detect';
 import {Row, Col} from 'react-bootstrap';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
-import seattleSpursLogo from '../seattle-spurs-logo.png'
-import spursLogo from '../spursLogo.png'
+import seattleSpursLogo from '../../photos/seattle-spurs-logo.png'
+import spursLogo from '../../photos/spursLogo.png'
+import madders from '../../photos/Madders.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2luc3kzMDAwIiwiYSI6ImNsb2Frc2llajAxMDMyamxpcTV4M2twaTAifQ.4EwOW1iEmaH8bpj1fB0kVg'
@@ -74,31 +75,43 @@ function About() {
     }
     
     return (
-        <motion.div
-        exit={{opacity: 0, transition: {duration: 1}}}
-        initial={{opacity: 0}}
-        animate={{opacity: 1, transition: {duration: 1}}}
-        >
+        <div>
             <Row style={{minHeight:`${(windowSize.innerHeight-102)*.005}px`, backgroundColor:'#ffffff'}}>
 
             </Row>
             <Row style={{minHeight:`${(windowSize.innerHeight-102)*.99}px`, backgroundColor:'#132257'}}>
+                <motion.Col style={{maxWidth:'17%'}}
+                    exit={{opacity: 0, y:500, transition: {duration: 1}}}
+                    initial={{opacity: 0, x:-300}}
+                    animate={{opacity: 1, x:0, transition: {duration: 1}}}>
+                    <img src={madders} height={windowSize.innerHeight*.6} alt="Madders" style={{position: 'absolute', bottom: '0px'}}></img>
+                </motion.Col>
                 <Col className='homeCol'>
-                    <div style={{height:'50%', width:'80%', textAlign:'center', alignContent:'center',alignItems:'center'}}>
-                        <p className='homeText'>Welcome to the home of Seattle Spurs, the Official Tottenham Hotspur Supporters Club in the Puget Sound region since 2014!
+                    <motion.div style={{height:'70%', width:'80%', textAlign:'center', alignContent:'center',alignItems:'center'}}
+                    exit={{opacity: 0, y:-300, transition: {duration: 1}}}
+                    initial={{opacity: 0, y:300}}
+                    animate={{opacity: 1, y:0, transition: {duration: 1}}}>
+                        <p className='homeText' style={{fontSize:windowSize.innerHeight/70+windowSize.innerWidth/100}}>Welcome to the home of Seattle Spurs, the Official Tottenham Hotspur Supporters Club in the Puget Sound region since 2014!
 Whether you're a seasoned Spurs supporter or are just now falling in love with Lilywhite - we'd love to welcome you to our club.
 You'll find us at the Whit's End Bar in Seattle's Phinney Ridge neighborhood for all live match viewings - no matter the hour. All ages, all people, and all dogs allowed!
 Be sure to follow us on Twitter and Facebook for all the latest updates!</p>
-                    </div>
+                    </motion.div>
                 </Col>
                 <Col className='homeCol'>
-                    <a href="https://www.google.com/maps/place/The+Whit's+End/@47.6763205,-122.3539848,15z/data=!4m2!3m1!1s0x0:0x4e7c15c4fabfefa2?sa=X&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAhbEAA&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAh1EAg" target="_blank" style={{textDecorationColor:"#ffffff"}}>
-                        <p className='whitsText'>Our Home: The Whit's End</p>
-                    </a>
-                    <div ref={mapContainer} style={{height:'50%', width:'80%'}}/>
+                    <motion.div
+                    exit={{opacity: 0, y: -300, transition: {duration: 1}}}
+                    initial={{opacity: 0, y:300}}
+                    animate={{opacity: 1, y:0, transition: {duration: 1}}}
+                    style={{minWidth:'100%',minHeight:'100%'}}
+                    className='homeCol'>
+                        <a href="https://www.google.com/maps/place/The+Whit's+End/@47.6763205,-122.3539848,15z/data=!4m2!3m1!1s0x0:0x4e7c15c4fabfefa2?sa=X&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAhbEAA&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAh1EAg" target="_blank" style={{textDecorationColor:"#ffffff"}}>
+                            <p className='whitsText' style={{fontSize:windowSize.innerWidth/40}}>Our Home: The Whit's End</p>
+                        </a>
+                        <div ref={mapContainer} style={{height:'50%', width:'80%'}}/>
+                    </motion.div>
                 </Col>
             </Row>
-        </motion.div>
+        </div>
        
     )
 }

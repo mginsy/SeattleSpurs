@@ -48,6 +48,7 @@ body {
   width: 100%;
   background-color: var(--background-color);
   color: var(--text-color);
+  overflow: hidden;
 }
 
 #root {
@@ -503,7 +504,7 @@ a {
   }
 
 .mapboxgl-marker{
-  background-image: url('./pages/spursLogo.png');
+  background-image: url('./photos/spursLogo.png');
   background-size: cover;
   display: block;
   border: none;
@@ -533,6 +534,21 @@ a {
   font-family:totReg;
   font-size: 35px;
   text-decoration: none;
+}
+
+.welcomeTo{
+  color:white;
+  font-family:totReg;
+  width:100%;
+}
+.homeName{
+  color:white;
+  font-family:totReg;
+  width:100%;
+}
+
+.homeColRight{
+  text-align: left;
 }
 
 @media only screen and (max-width: 600px) {
