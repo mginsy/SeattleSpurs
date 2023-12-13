@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {motion} from 'framer-motion';
 import {isMobile} from 'react-device-detect';
 import {Row, Col} from 'react-bootstrap';
-import loading from './loading.gif';
+import loading from '../../photos/loading.gif';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -42,43 +42,60 @@ function Matches() {
                 throw new Error(`HTTP error! Status: ${response.status}`);
                 }
               return response.json();
-            }).then(function(data) {
-                const monthsUE = [];
-
-                let matchesAvailable = false;
-                const monthsJSONUE = data["data"]["months"];
-                const monthsByThirdsUE = {}
-                let firstMonthIndex = 0
-                let firstMonthFound = false;
-                for (let i = 0; i < monthsJSONUE.length; i++){
-                    if (monthsJSONUE[i]["isShown"] && !firstMonthFound){
-                        firstMonthIndex = i
-                        firstMonthFound = true
+            }).then(async function(data) {
+                const reponse2 = await fetch('https://4vmq6evqfxwzajuq2wywdgoc5e0fzuib.lambda-url.us-west-2.on.aws/')
+                .then(function(response) {
+                    if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                     }
-                    monthsUE.push(monthsJSONUE[i]["month"]);
-                    matchesAvailable = true;
-                    monthsByThirdsUE[monthsJSONUE[i]["month"]] = []
-                    for (let j = 0; j < monthsJSONUE[i]["items"].length; j++){
-                        if (!isMobile){
-                            if (j%3===0){
-                                monthsByThirdsUE[monthsJSONUE[i]["month"]].push([monthsJSONUE[i]["items"][j]])
+                return response.json();
+                }).then(function(data2) {
+                    const monthsUE = [];
+                    let matchesAvailable = false;
+                    const monthsJSONUE = data["data"]["months"];
+                    const monthsByThirdsUE = {}
+                    let firstMonthIndex = 0
+                    let firstMonthFound = false;
+                    for (let i = 0; i < monthsJSONUE.length; i++){
+                        if (monthsJSONUE[i]["isShown"] && !firstMonthFound){
+                            firstMonthIndex = i
+                            firstMonthFound = true
+                        }
+                        monthsUE.push(monthsJSONUE[i]["month"]);
+                        matchesAvailable = true;
+                        monthsByThirdsUE[monthsJSONUE[i]["month"]] = []
+                        for (let j = 0; j < monthsJSONUE[i]["items"].length; j++){
+                            const item = monthsJSONUE[i]["items"][j]
+                            console.log(data2)
+                            console.log(item["fixture"]["kickOffShowingMatch"])
+                            if (item["fixture"]["kickOffShowingMatch"] in data2){
+                                item["fixture"]["showings"] = data2[item["fixture"]["kickOffShowingMatch"]]
                             }
                             else{
-                                monthsByThirdsUE[monthsJSONUE[i]["month"]][(j-(j%3))/3].push(monthsJSONUE[i]["items"][j])
+                                item["fixture"]["showings"] = []
                             }
+                            if (!isMobile){
+                                if (j%3===0){
+                                    monthsByThirdsUE[monthsJSONUE[i]["month"]].push([item])
+                                }
+                                else{
+                                    monthsByThirdsUE[monthsJSONUE[i]["month"]][(j-(j%3))/3].push(item)
+                                }
+                            }
+                            else{
+                                monthsByThirdsUE[monthsJSONUE[i]["month"]].push([item])
+                            }
+                            
                         }
-                        else{
-                            monthsByThirdsUE[monthsJSONUE[i]["month"]].push([monthsJSONUE[i]["items"][j]])
-                        }
-                        
+                        monthsByThirdsUE[monthsJSONUE[i]["month"] + "Count"] = monthsJSONUE[i]["items"].length
                     }
-                    monthsByThirdsUE[monthsJSONUE[i]["month"] + "Count"] = monthsJSONUE[i]["items"].length
-                }
-    
-                setMonths(monthsUE);
-                setMonthsByThirds(monthsByThirdsUE);
-                setMonthsJSON(monthsJSONUE);
-                setMonth(firstMonthIndex);
+        
+                    setMonths(monthsUE);
+                    setMonthsByThirds(monthsByThirdsUE);
+                    setMonthsJSON(monthsJSONUE);
+                    setMonth(firstMonthIndex);
+                    }
+                )
             }).then(function() {
                 setLoaded(true);
                 console.log("Loaded Successfully")
@@ -146,6 +163,8 @@ function Matches() {
         'height':`${windowSize.innerHeight*.08}px`,'width':`${windowSize.innerWidth*.8}px`
     } 
 
+    const currentDate = new Date();
+
     if (loaded){
         if (isMobile){
             return (
@@ -164,7 +183,7 @@ function Matches() {
                              exit={{opacity: 0, y:windowSize.innerHeight*.4, transition: {duration: 1}}}
                              initial={{opacity: 0, y:-windowSize.innerHeight*.3}}
                              animate={{opacity: 1, y:0, transition: {duration: .5}}}
-                             style={{display:"flex",flexDirection:'row', alignItems:"center", justifyContent:"center"}}>
+                             style={{display:"flex",flexDirection:'row', alignItems:"center", justifyContent:"center", margin:0}}>
                                  <h1 className="matchesMonthText" style={{color:"#ffffff",fontSize: windowSize.innerWidth/22, marginBottom:"0"}}>{months[monthIndex]}</h1>
                              </motion.div>
                          </Col>
@@ -215,12 +234,16 @@ function Matches() {
                                                             </Row>
                                                         </Col>
                                                     </motion.div>
-                                                    <motion.div key={`${i}+${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'5px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'1%'}: {paddingTop:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'6%'}: {paddingTop:'2%'}}
-                                                    exit={{opacity: 0, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
-                                                    initial={{opacity: 0, }}i
-                                                    animate={{opacity: 1, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
-                                                        <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257', marginBottom:'0'} :{fontSize:`${windowSize.innerHeight/70}px`}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`})}>{match.isNextFixture ? "NEXT MATCH: Showings: Whit's End, Snoqualmie" : "Showings: Whit's End, Snoqualmie"}</p>
-                                                    </motion.div>
+                                                    {new Date(match.fixture.kickOff) < currentDate ? (
+                                                    <p className="matchShowingsText" style={{fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/140}px`}}> </p>
+                                                    ) : (
+                                                        <motion.div key={`${i}+${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'5px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'1%'}: {paddingTop:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'6%'}: {paddingTop:'2%'}}
+                                                        exit={{opacity: 0, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
+                                                        initial={{opacity: 0, }}i
+                                                        animate={{opacity: 1, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
+                                                            <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257', marginBottom:'0'} :{fontSize:`${windowSize.innerHeight/70}px`}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`})}>{match.fixture.showings.length > 0 ? ((match.isNextFixture ? "NEXT MATCH: " : "").concat("Showings: ").concat(match.fixture.showings.join(", "))) : ("No Showings Found")}</p>
+                                                        </motion.div>
+                                                    )}
                                                     <div style={match.isNextFixture ? {paddingBottom:'3%'}:{}}>
     
                                                     </div>
@@ -253,7 +276,7 @@ function Matches() {
                              exit={{opacity: 0, y:windowSize.innerHeight*.4, transition: {duration: 1}}}
                              initial={{opacity: 0, y:-windowSize.innerHeight*.3}}
                              animate={{opacity: 1, y:0, transition: {duration: .5}}}>
-                                 <h1 className="matchesMonthText" style={{color:"#ffffff",fontSize: windowSize.innerWidth/22}}>{months[monthIndex]}</h1>
+                                 <h1 className="matchesMonthText" style={{color:"#ffffff",fontSize: windowSize.innerWidth/22, marginBottom: '0'}}>{months[monthIndex]}</h1>
                              </motion.div>
                          </Col>
                          <Col style={{justifyContent:'left',display:'flex'}}>
@@ -270,6 +293,7 @@ function Matches() {
                              return(
                                  <Row style={{display:"flex",justifyContent:"center", alignItems:'center'}}>
                                      {monthArr.map(function(match, j) {
+                                        console.log(match)
                                          return (
                                              <Col style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? {'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column', height:`${windowSize.innerHeight*.2}px`} : {'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column'}}>
                                                  <motion.div key={`${i}+${j}+${monthIndex}`} className={match.isNextFixture ? monthsByThirds[months[monthIndex]+"Count"] > 6 ? "smallNextMatch" : "nextMatch" : ""} style={match.isNextFixture ? (match.fixture.homeTeam.name === "Spurs" ? nextHomeMatchBoxStyle : nextAwayMatchBoxStyle) : (match.fixture.homeTeam.name === "Spurs" ? homeMatchBoxStyle : awayMatchBoxStyle) }
@@ -308,12 +332,16 @@ function Matches() {
                                                          </Row>
                                                      </Col>
                                                  </motion.div>
-                                                 <motion.div key={`${i}+${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'6px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth/divideFactor+12}px`, paddingBottom:'6%'}: {paddingTop:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth/divideFactor+32}px`, paddingBottom:'6%'}: {paddingTop:'2%'}}
-                                                 exit={{opacity: 0, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
-                                                 initial={{opacity: 0, }}
-                                                 animate={{opacity: 1, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
-                                                     <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/120+windowSize.innerHeight/170)*multFactor}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/140}px`}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/100+windowSize.innerHeight/150)*multFactor}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/140}px`})}>{match.isNextFixture ? "NEXT MATCH: Showings: Whit's End, Snoqualmie" : "Showings: Whit's End, Snoqualmie"}</p>
-                                                 </motion.div>
+                                                 {new Date(match.fixture.kickOff) < currentDate ? (
+                                                    <p className="matchShowingsText" style={{fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/140}px`, paddingBottom:'3%'}}> </p>
+                                                  ) : (
+                                                    <motion.div key={`${i}+${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'6px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth/divideFactor+12}px`, paddingBottom:'6%'}: {paddingTop:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth/divideFactor+32}px`, paddingBottom:'6%'}: {paddingTop:'2%'}}
+                                                    exit={{opacity: 0, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
+                                                    initial={{opacity: 0, }}
+                                                    animate={{opacity: 1, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
+                                                        <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/120+windowSize.innerHeight/170)*multFactor}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/140}px`}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/100+windowSize.innerHeight/150)*multFactor}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/140}px`})}>{match.fixture.showings.length > 0 ? ((match.isNextFixture ? "NEXT MATCH: " : "").concat("Showings: ").concat(match.fixture.showings.join(", "))) : ("No Showings Found")}</p>
+                                                    </motion.div>
+                                                  )}
                                              </Col>
                                          )})
                                      }
@@ -329,7 +357,7 @@ function Matches() {
     else{
         return (
             <div style={{zIndex:'1',minHeight:'100%',minWidth:'100%'}}>
-                <Row style={{display:'flex',alignItems:'center',justifyContent:'center', textAlign:'center', height:'100%', width:'100%'}}>
+                <Row style={{display:'flex',alignItems:'center',justifyContent:'center', textAlign:'center', height:'100%', width:'100%', margin:0}}>
                     <Col  style={{display:'flex',alignItems:'center',justifyContent:'center', textAlign:'center', height:'100%', width:'100%'}}>
                         <img src={loading} alt="Loading..." />
                     </Col>

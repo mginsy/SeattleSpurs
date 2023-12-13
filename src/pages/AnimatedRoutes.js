@@ -7,6 +7,7 @@ import About from './About'
 import Gallery from './Gallery'
 import Matches from './Matches'
 import {Contact} from './Contact'
+import {ContactThanks} from './ContactThanks'
 
 import {AnimatePresence} from 'framer-motion'
 
@@ -22,6 +23,7 @@ function AnimatedRoutes(){
                 <Route path="/matches" element={<Matches />}/>
                 <Route path="/gallery" element={<Gallery />}/>
                 <Route path="/contact" element={<Contact />}/>
+                <Route path="/contactThanks" element={<ContactThanks />}/>
             </Routes>
         </AnimatePresence>
     )

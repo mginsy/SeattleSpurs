@@ -31,6 +31,8 @@ function Contact() {
     const [commentsVal, setCommentsValue] = useState("");
     const [isFilled, setFilled] = useState(false);
 
+    
+
     const onNameChange = (e) => {
         setNameValue(e.target.value);
         if (e.target.value.length > 0 && 
@@ -73,7 +75,7 @@ function Contact() {
 
     const sendEmail = (e) => {
 
-        const emailJSON = {"subject":"From Personal Website","name":nameVal,"email":emailVal,"message":commentsVal}
+        const emailJSON = {"subject":"From Seattle Spurs Website","name":nameVal,"email":emailVal,"message":commentsVal}
 
         console.log(emailJSON)
 
@@ -82,7 +84,11 @@ function Contact() {
         else if (nameVal.length === 0 || commentsVal.length === 0){ //other thing wrong
         }
         else{ //everything right
-            axios.post(`https://lafoodemailserver.herokuapp.com/sendEmail`, emailJSON)
+            axios.post(`https://lsa5mlkwsp7x7q7c4nfeuk33im0raiaq.lambda-url.us-west-2.on.aws/`, {data:emailJSON},{
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+            })
             .then(res => {
                 console.log(res);
             })
@@ -102,6 +108,16 @@ function Contact() {
           backgroundColor: '#ffffff',
           borderColor: '#ffffff',
           border: 'none'
+        },
+      });
+
+      const ThemedButton = styled(Button) ({
+        color: '#132257',
+        backgroundColor: '#ffffff',
+        fontFamily:'totReg',
+        '&:hover': {
+          backgroundColor: '#756A61',
+          color: '#ffffff'
         },
       });
     
@@ -140,7 +156,7 @@ function Contact() {
                                 component={Link}
                                 onClick={sendEmail}
                                 size="large"
-                                to={{pathname: "/"}}
+                                to={{pathname: "/contactThanks"}}
                                 loadingIndicator="Loading…"
                                 variant="outlined"
                                 style={{width:'40%'}}>
@@ -188,7 +204,7 @@ function Contact() {
                             component={Link}
                             onClick={sendEmail}
                             size="large"
-                            to={{pathname: "/"}}
+                            to={{pathname: "/contactThanks"}}
                             loadingIndicator="Loading…"
                             variant="outlined"
                             style={{width:'17%'}}>
