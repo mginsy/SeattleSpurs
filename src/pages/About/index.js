@@ -53,13 +53,23 @@ function About() {
         el.style.height = `${height}px`;
         el.style.backgroundSize = '100%';
 
-        const marker = new mapboxgl.Marker(el)
+        const marker1 = new mapboxgl.Marker(el)
         .setLngLat([-122.354010,47.676340])
         .addTo(map.current)
         .setPopup(
             new mapboxgl.Popup({ offset: 25 }) // add popups
               .setHTML(
                 `<a href="https://www.google.com/maps/place/The+Whit's+End/@47.6763205,-122.3539848,15z/data=!4m2!3m1!1s0x0:0x4e7c15c4fabfefa2?sa=X&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAhbEAA&ved=2ahUKEwjC5ffa6JmCAxVZEzQIHX6DB-YQ_BJ6BAh1EAg" target="_blank"><p className='markerText' style="margin-bottom: 0;">The Whit's End</p></a>`
+              )
+          );
+
+        const marker2 = new mapboxgl.Marker(el)
+        .setLngLat([-122.2939725,47.1920227])
+        .addTo(map.current)
+        .setPopup(
+            new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                `<a href="https://www.google.com/maps/place/CaskCades/@47.1920227,-122.2939725,15z/data=!4m2!3m1!1s0x0:0xb46d807749ee634a?sa=X&ved=2ahUKEwiyycnPn5CDAxWsGjQIHeiWB34Q_BJ6BAhFEAA" target="_blank"><p className='markerText' style="margin-bottom: 0;">CaskCades</p></a>`
               )
           );
 
