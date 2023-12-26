@@ -10,15 +10,15 @@ import Button from '@mui/material/Button';
 import {isMobile} from 'react-device-detect';
 //import 'react-calendar/dist/Calendar.css';
 
-const formColor = 'rgba(117, 106, 97, .7)'
+const formColor = 'rgba(256, 256, 256, .7)'
 const StyledText = styled(TextField)({
   '& .MuiInputBase-formControl': {
     backgroundColor: formColor,
-    color:"#ffffff",
+    color:"#132257",
     fontFamily: ['totReg'].join(',')
   },
   '& .MuiInputLabel-formControl': {
-    color:"#ffffff",
+    color:"#132257",
     fontFamily: ['totReg'].join(',')
   },
 });
@@ -97,16 +97,16 @@ function Contact() {
 
       const StyledButton = styled(Button)({
         textTransform: 'none',
-        color: '#ffffff',
-        backgroundColor: "#756A61",
+        color: '#132257',
+        backgroundColor: "#ffffff",
         border: 'none',
         fontSize: 25,
         fontFamily:"totReg",
         '&:hover': {
           textTransform: 'none',
-          color: '#756A61',
-          backgroundColor: '#ffffff',
-          borderColor: '#ffffff',
+          color: '#132257',
+          backgroundColor: '#d6d6d6',
+          borderColor: '#d6d6d6',
           border: 'none'
         },
       });

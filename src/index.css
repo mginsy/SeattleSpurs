@@ -553,6 +553,7 @@ a {
 
 .homeColRight{
   text-align: left;
+  padding-bottom:8%;
 }
 
 .arrowHover:hover {
@@ -569,12 +570,14 @@ a {
   box-shadow:
   0 0 0 8px #132257,
   0 0 0 16px #ffffff;
+  z-index: 3;
 }
 
 .smallNextMatch {
   box-shadow:
   0 0 0 3px #132257,
   0 0 0 6px #ffffff;
+  z-index: 3;
 }
 
 .matchShowingsText{
@@ -585,6 +588,10 @@ a {
 .Mui-selected{
   background-color: #756A61 !important;
   color: #ffffff !important;
+}
+
+.image-gallery-image{
+  max-height:70vh !important;
 }
 
 @media only screen and (max-width: 600px) {

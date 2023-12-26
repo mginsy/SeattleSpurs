@@ -4,16 +4,9 @@ import {isMobile} from 'react-device-detect';
 import {Row, Col} from 'react-bootstrap';
 import romero from '../../photos/Romero.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
-import {ToggleButton} from '@mui/material';
-import ToggleButtonGroup  from '@mui/material/ButtonGroup';
-import { styled } from '@mui/material/styles';
-import { InstagramEmbed } from 'react-social-media-embed';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faFacebook,
-    faInstagram
-  } from '@fortawesome/free-brands-svg-icons';
 import loading from '../../photos/loading.gif';
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 function getWindowSize() {
     const {innerWidth, innerHeight} = window;
@@ -21,12 +14,8 @@ function getWindowSize() {
 }
 function Gallery() {
     const [windowSize, setWindowSize] = useState(getWindowSize());
-    const [social, setSocial] = useState("Facebook");
-    const [fbLinks, setFBLinks] = useState([]);
-    const [instaLinks, setInstaLinks] = useState([]);
+    const [photoArr, setPhotoArr] = useState([]);
     const [loaded, setLoaded] = useState(false);
-    const [postIndex, setPostIndex] = useState(0);
-    const [reloadInsta, setReloadInsta] = useState(false);
     
 
 
@@ -45,15 +34,21 @@ function Gallery() {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('https://rn7s6gam3f57ze7fi7dtfrv5by0uqsvy.lambda-url.us-west-2.on.aws/')
+            const response = await fetch('https://3j6qqqo3o3wefw6teocmq6lwta0ugeph.lambda-url.us-west-2.on.aws/')
             .then(function(response) {
                 if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
                 }
               return response.json();
             }).then(function(data) {
-                setInstaLinks(data["Instagram"])
-                setFBLinks(data["Facebook"])
+                let newPhotoArr = []
+                for (let i = 0; i < data.length; i++) {
+                    newPhotoArr.push({
+                        original: data[i],
+                        thumbnail: data[i],
+                    })
+                }
+                setPhotoArr(newPhotoArr)
             }).then(function() {
                 setLoaded(true);
                 console.log("Loaded Successfully")
@@ -66,70 +61,23 @@ function Gallery() {
         fetchData();
       }, []);
 
-      useEffect(() => {
-        const intervalId = setInterval(() => {
-          // Increment seconds every 5 seconds
-          setReloadInsta(true);
-          setPostIndex((prevCount) => prevCount + 1);
-          setReloadInsta(false);
-        }, 10000);
-    
-        // Cleanup function to clear the interval when the component unmounts
-        return () => clearInterval(intervalId);
-      }, []);
-
-      const changeSocial = (event, newSocial) => {
-        setSocial(newSocial);
-      };
-
-    const ThemedToggleButton = styled(ToggleButton) ({
-        color: '#132257',
-        backgroundColor: '#ffffff',
-        fontFamily:'totReg'
-      });
-
     if (loaded){
         if (isMobile){
             return (
                 <div style={{zIndex:'1'}}>
                     <Col style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
-                        <Row style={{height:'10%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center', paddingTop:'5%'}}>
-                            <motion.div
+                        <Row style={{height:'90%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center', paddingTop:'5%'}}>
+                        <motion.div
                                 exit={{opacity: 0, x:0, transition: {duration: 1}}}
                                 initial={{opacity: 0,  x:0}}
                                 animate={{opacity: 1, x:0, transition: {duration: 1}}}
                                 style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                <ToggleButtonGroup  variant="contained" aria-label="outlined primary button group" style={{justifyContent:'center', width:'fit-content', paddingRight:'0', paddingLeft:'0'}}
-                                exclusive="true"
-                                >
-                                    <ThemedToggleButton variant="contained" value="Facebook" onChange={changeSocial} selected={social==="Facebook"} style={{width:window.innerWidth*.2}}><FontAwesomeIcon icon={faFacebook} size="2x"/></ThemedToggleButton>
-                                    <ThemedToggleButton variant="contained" value="Instagram" onChange={changeSocial} selected={social==="Instagram"} style={{width:window.innerWidth*.2}}><FontAwesomeIcon icon={faInstagram} size="2x"/></ThemedToggleButton>
-                                </ToggleButtonGroup >        
+                                    <Row style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                                        <Col style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                                            <ImageGallery items={photoArr}/>     
+                                        </Col>   
+                                    </Row>
                             </motion.div>
-                        </Row>
-                        <Row style={{height:'80%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                            {social==="Facebook" ? (
-                                <motion.div
-                                exit={{opacity: 0, x:0, transition: {duration: 1}}}
-                                initial={{opacity: 0,  x:0}}
-                                animate={{opacity: 1, x:0, transition: {duration: 1}}}
-                                style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                    <iframe src={fbLinks[postIndex%fbLinks.length]} height={windowSize.innerHeight*.7} width={windowSize.innerWidth/1.2} style={{"border":"none","overflow":"hidden",paddingTop:"10%"}} scrolling="no" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                                </motion.div>
-                                ) : (
-                                    <motion.div
-                                    exit={{opacity: 0, x:300, transition: {duration: 1}}}
-                                    initial={{opacity: 0, x:300}}
-                                    animate={{opacity: 1, x:0, transition: {duration: 1}}}
-                                    style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-                                        {reloadInsta ? (
-                                            <p>Loading Instagram...</p>
-                                        ) : (
-                                            <InstagramEmbed url={instaLinks[postIndex%instaLinks.length]} width={328} height={windowSize.innerHeight*.6}/>
-                                        )}
-                                    </motion.div>
-                                )   
-                            }
                         </Row>
                         <Row style={{height:'10%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                             <motion.div
@@ -137,7 +85,7 @@ function Gallery() {
                             initial={{opacity: 1, x:-200}}
                             animate={{opacity: 1, x:windowSize.innerWidth-200, transition: {duration: 3}}}
                             style={{position: 'absolute', bottom: '0px'}}>
-                                <img src={romero} height={windowSize.innerHeight*.1} alt="Romero" style={{position: 'absolute', bottom: '0px', marginBottom:'5%'}}></img>
+                                <img src={romero} height={windowSize.innerHeight*.1} alt="Romero" style={{position: 'absolute', bottom: '0px', marginBottom:'1%'}}></img>
                             </motion.div>
                         </Row>  
                     </Col>
@@ -148,37 +96,30 @@ function Gallery() {
         else{
             return (
                 <div style={{zIndex:'1'}}>
-                    <Row style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                        <Col style={{height:'80%',width:`${windowSize.innerWidth/3}px`,display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    <Col style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+                        <Row style={{maxHeight:'90%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center', paddingTop:'5%'}}>
                             <motion.div
-                            exit={{opacity: 0, x:-300, transition: {duration: 1}}}
-                            initial={{opacity: 0,  x:-300}}
-                            animate={{opacity: 1, x:0, transition: {duration: 1}}}
-                            style={{display:'flex',justifyContent:'center',alignItems:'center', height:'100%', width:'100%'}}>
-                                <iframe src={fbLinks[postIndex%fbLinks.length]} width={windowSize.innerWidth/3} height={windowSize.innerHeight/1.5} style={{"border":"none","overflow":"hidden"}} scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                exit={{opacity: 0, x:0, transition: {duration: 1}}}
+                                initial={{opacity: 0,  x:0}}
+                                animate={{opacity: 1, x:0, transition: {duration: 1}}}
+                                style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                                    <Row style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                                        <Col style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                                            <ImageGallery items={photoArr}/>     
+                                        </Col>   
+                                    </Row>
                             </motion.div>
-                        </Col>
-                        <Col style={{height:'80%',width:'40%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                        </Row>
+                        <Row style={{height:'10%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                             <motion.div
-                            exit={{opacity: 0, x:300, transition: {duration: 1}}}
-                            initial={{opacity: 0, x:300}}
-                            animate={{opacity: 1, x:0, transition: {duration: 1}}}
-                            style={{display:'flex',justifyContent:'center',alignItems:'center', height:'100%', width:'100%'}}>
-                                {reloadInsta ? (
-                                    <p>Loading Instagram...</p>
-                                ) : (
-                                    <InstagramEmbed url={instaLinks[postIndex%instaLinks.length]}/>
-                                )}
-                            </motion.div>
-                        </Col>
-                        <motion.div
                             exit={{opacity: 0, x:windowSize.innerWidth, transition: {duration: 1}}}
-                            initial={{opacity: 1, x:-300}}
-                            animate={{opacity: 1, x:windowSize.innerWidth-300, transition: {duration: 3}}}
+                            initial={{opacity: 1, x:-200}}
+                            animate={{opacity: 1, x:windowSize.innerWidth-200, transition: {duration: 3}}}
                             style={{position: 'absolute', bottom: '0px'}}>
-                                <img src={romero} height={windowSize.innerHeight*.1} alt="Romero" style={{position: 'absolute', bottom: '0px'}}></img>
-                        </motion.div>
-                    </Row>
+                                <img src={romero} height={windowSize.innerHeight*.1} alt="Romero" style={{position: 'absolute', bottom: '0px', marginBottom:'2%'}}></img>
+                            </motion.div>
+                        </Row>  
+                    </Col>
                 </div>
             
             )

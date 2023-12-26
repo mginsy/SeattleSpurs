@@ -78,6 +78,7 @@ function Navbar(props) {
                             </Col>
                             <Col>
                                 <Nav style={{display:'flex',alignItems:'center',justifyContent:"center"}}>
+                                    <a className="nav-item nav-link" href={"https://digitalspurs.com/collections/seattle-spurs"} target="_blank" rel="noreferrer">Shop</a>
                                     <a style={{display:'flex',alignItems:'center',justifyContent:"center", height:'33%'}} className="nav-item nav-link" href={"https://www.facebook.com/seattlespurs"} target="_blank" rel="noreferrer" onClick={() => setExpanded(expanded ? false : "expanded")}><FontAwesomeIcon icon={faFacebook} size="2x"/></a>
                                     <a style={{display:'flex',alignItems:'center',justifyContent:"center", height:'33%'}} className="nav-item nav-link" href={"https://twitter.com/seattlespurs"} target="_blank" rel="noreferrer" onClick={() => setExpanded(expanded ? false : "expanded")}><FontAwesomeIcon icon={faTwitter} size="2x"/></a>
                                     <a style={{display:'flex',alignItems:'center',justifyContent:"center", height:'33%'}} className="nav-item nav-link" href={"https://www.instagram.com/seattle_spurs/"} target="_blank" rel="noreferrer" onClick={() => setExpanded(expanded ? false : "expanded")}><FontAwesomeIcon icon={faInstagram} size="2x"/></a>
@@ -111,6 +112,7 @@ function Navbar(props) {
                             <NavbarLink to="/matches">Matches</NavbarLink>
                             <NavbarLink to="/gallery">Gallery</NavbarLink>
                             <NavbarLink to="/contact">Contact</NavbarLink>
+                            <a className="nav-item nav-link" href={"https://digitalspurs.com/collections/seattle-spurs"} target="_blank" rel="noreferrer">Shop</a>
                         </Nav>
                         <Nav>
                             <a className="nav-item nav-link" href={"https://www.facebook.com/seattlespurs"} target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faFacebook} size="2x"/></a>

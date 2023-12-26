@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef} from 'react';
 import {motion} from 'framer-motion';
 import {isMobile} from 'react-device-detect';
 import {Row, Col} from 'react-bootstrap';
+import Map, {Marker, Popup} from 'react-map-gl';
 import mapboxgl from 'mapbox-gl';
 import spursLogo from '../../photos/spursLogo.png'
 import members from '../../photos/seattleSpursMembers.jpg'
@@ -19,9 +20,9 @@ function About() {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
-    const lat = 47.676340;
-    const lng = -122.354010;
-    const zoom = 12;
+    const lat = 47.464;
+    const lng = -122.3202;
+    const zoom = isMobile ? 6.5 : 9;
 
     useEffect(() => {
         function handleWindowResize() {
@@ -44,6 +45,7 @@ function About() {
         hash: true
         });
 
+
         const el = document.createElement('div');
         const width = 30
         const height = 62
@@ -63,7 +65,14 @@ function About() {
               )
           );
 
-        const marker2 = new mapboxgl.Marker(el)
+          const el2 = document.createElement('div');
+          el2.className = 'marker';
+          el2.style.backgroundImage = spursLogo;
+          el2.style.width = `${width}px`;
+          el2.style.height = `${height}px`;
+          el2.style.backgroundSize = '100%';
+
+        const marker2 = new mapboxgl.Marker(el2)
         .setLngLat([-122.2939725,47.1920227])
         .addTo(map.current)
         .setPopup(
