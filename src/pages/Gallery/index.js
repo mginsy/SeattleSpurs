@@ -113,8 +113,8 @@ function Gallery() {
                         <Row style={{height:'10%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                             <motion.div
                             exit={{opacity: 0, x:windowSize.innerWidth, transition: {duration: 1}}}
-                            initial={{opacity: 1, x:-200}}
-                            animate={{opacity: 1, x:windowSize.innerWidth-200, transition: {duration: 3}}}
+                            initial={{opacity: 1, x:-windowSize.innerWidth*.15}}
+                            animate={{opacity: 1, x:windowSize.innerWidth*.85, transition: {duration: 3}}}
                             style={{position: 'absolute', bottom: '0px'}}>
                                 <img src={romero} height={windowSize.innerHeight*.1} alt="Romero" style={{position: 'absolute', bottom: '0px', marginBottom:'2%'}}></img>
                             </motion.div>
