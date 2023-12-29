@@ -20,9 +20,9 @@ function About() {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
-    const lat = 47.464;
-    const lng = -122.3202;
-    const zoom = isMobile ? 6.5 : 9;
+    const lat = 47.448;
+    const lng = -122.3;
+    const zoom = isMobile ? 8 : 9;
 
     useEffect(() => {
         function handleWindowResize() {
@@ -118,31 +118,33 @@ function About() {
                         </h1>
                     </div>
                 </Row>
-                <Row style={{height:'27.5%',width:'100%','--bs-gutter-x':'0'}}>
-                    <motion.div style={{height:'100%',width:'100%', textAlign:'center'}}
-                    exit={{opacity: 0, x:-windowSize.innerWidth*2/3, transition: {duration: 1}}}
-                    initial={{opacity: 0, x:windowSize.innerWidth*2/3}}
-                    animate={{opacity: 1, x:0, transition: {duration: 1}}}>
-                        <p className='homeText' style={{fontSize:windowSize.innerHeight/90+windowSize.innerWidth/110, paddingRight:'2%', paddingLeft:'2%'}}>Welcome to the home of Seattle Spurs, the Official Tottenham Hotspur Supporters Club in the Puget Sound region since 2014!
+                <Row style={{height:'50%',width:'100%','--bs-gutter-x':'0', justifyContent:"center",alignItems:'center',display:"flex", marginTop:'6%'}}>
+                    <Col style={{height:'100%',width:'50%','--bs-gutter-x':'0', justifyContent:"center",alignItems:'center',display:"flex"}}>
+                        <motion.div style={{height:'100%',width:'100%'}}
+                        exit={{opacity: 0, x:-windowSize.innerWidth/2, transition: {duration: 1}}}
+                        initial={{opacity: 0, x:-windowSize.innerWidth/2}}
+                        animate={{opacity: 1, x:0, transition: {duration: 1}}}>
+                            <div ref={mapContainer} style={{height:'100%', width:'100%'}}/>
+                        </motion.div>
+                    </Col>
+                    <Col style={{height:'100%',width:'50%','--bs-gutter-x':'0', justifyContent:"center",alignItems:'center',display:"flex"}}>
+                        <motion.div style={{height:'100%',width:'100%', textAlign:'center', justifyContent:"center",alignItems:'center',display:"flex"}}
+                        exit={{opacity: 0, x:windowSize.innerWidth/2, transition: {duration: 1}}}
+                        initial={{opacity: 0, x:windowSize.innerWidth/2}}
+                        animate={{opacity: 1, x:0, transition: {duration: 1}}}>
+                            <p className='homeText' style={{fontSize:windowSize.innerHeight/90+windowSize.innerWidth/110, paddingRight:'2%', paddingLeft:'2%'}}>Welcome to the home of Seattle Spurs, the Official Tottenham Hotspur Supporters Club in the Puget Sound region since 2014!
 Whether you're a seasoned Spurs supporter or are just now falling in love with Lilywhite - we'd love to welcome you to our club.
 You'll find us at the Whit's End Bar in Seattle's Phinney Ridge neighborhood for all live match viewings - no matter the hour. All ages, all people, and all dogs allowed!
 Be sure to follow us on Twitter and Facebook for all the latest updates!</p>
-                    </motion.div>  
+                        </motion.div> 
+                    </Col>
                 </Row>
-                <Row style={{height:'27.5%',width:'80%','--bs-gutter-x':'0', justifyContent:"center",alignItems:'center',display:"flex"}}>
+                <Row style={{height:'30%',width:'100%','--bs-gutter-x':'0', marginTop:'6%', justifyContent:"center",alignItems:'center',display:"flex"}}>
                     <motion.div style={{height:'100%',width:'100%', display:'flex'}}
-                    exit={{opacity: 0, x:-windowSize.innerWidth*2/3, transition: {duration: 1}}}
-                    initial={{opacity: 0, x:windowSize.innerWidth*2/3}}
-                    animate={{opacity: 1, x:0, transition: {duration: 1}}}>
-                        <img src={members} alt="members" style={{overflow:'hidden', objectFit:'cover', width:'100%'}}/> 
-                    </motion.div>
-                </Row>
-                <Row style={{height:'25%',width:'100%','--bs-gutter-x':'0', marginTop:'10%'}}>
-                    <motion.div style={{height:'100%',width:'100%'}}
                     exit={{opacity: 0, y:windowSize.innerHeight/3, transition: {duration: 1}}}
                     initial={{opacity: 0, y:windowSize.innerHeight/3}}
                     animate={{opacity: 1, y:0, transition: {duration: 1}}}>
-                        <div ref={mapContainer} style={{height:'100%', width:'100%'}}/>
+                        <img src={members} alt="members" style={{overflow:'hidden', objectFit:'cover', width:'100%'}}/> 
                     </motion.div>
                 </Row>
             </div>
