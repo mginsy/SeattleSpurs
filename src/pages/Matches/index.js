@@ -207,44 +207,91 @@ function Matches() {
                                         {monthArr.map(function(match, j) {
                                             return (
                                                 <div style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? {'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column', height:`${windowSize.innerHeight*.1}px`} : {'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column'}}>
-                                                    {new Date(match.fixture.kickOff) >= currentDate && (
-                                                        <motion.div key={`${i}+${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'5px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'1%'}: {paddingTop:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'6%'}: {paddingTop:'2%'}}
+                                                    <div style={{position:'absolute', width:'100%', height:'100%', display:'flex','justifyContent':"center", 'alignItems':'center', flexDirection:'column', zIndex:1}}>
+                                                        {new Date(match.fixture.kickOff) >= currentDate && (
+                                                            <motion.div key={`${i}+${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'5px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'1%'}: {paddingTop:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'6%'}: {paddingTop:'2%'}}
+                                                            exit={{opacity: 0, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
+                                                            initial={{opacity: 0, }}i
+                                                            animate={{opacity: 1, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
+                                                                <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0', paddingBottom:'3%'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0', paddingBottom:'3%'})}>{match.fixture.showings.length > 0 ? (<span><span>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span><a style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span> ,</span>) : (<span></span>)}</span>)})}</span>) : (<span>No Match Viewing Locations Found</span>)}</p>
+                                                            </motion.div>
+                                                        )}
+                                                        <motion.div key={`${i}+${j}+${monthIndex}`} className={match.isNextFixture ? monthsByThirds[months[monthIndex]+"Count"] > 6 ? "smallNextMatch" : "nextMatch" : ""} style={match.isNextFixture ? (match.fixture.homeTeam.name === "Spurs" ? nextHomeMatchBoxStyleMobile : nextAwayMatchBoxStyleMobile) : (match.fixture.homeTeam.name === "Spurs" ? homeMatchBoxStyleMobile : awayMatchBoxStyleMobile) }
                                                         exit={{opacity: 0, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
-                                                        initial={{opacity: 0, }}i
+                                                        initial={{opacity: 0, }}
                                                         animate={{opacity: 1, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
-                                                            <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0', paddingBottom:'3%'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0', paddingBottom:'3%'})}>{match.fixture.showings.length > 0 ? (<span><span>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span><a style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span> ,</span>) : (<span></span>)}</span>)})}</span>) : (<span>No Match Viewing Locations Found</span>)}</p>
+                                                            <Col style={{height:'100%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column'}}>
+                                                                <Row style={{height:'95%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingTop:'5%'}}>
+                                                                    <Col style={{height:'100%', width:'20%', paddingLeft:'2%', paddingRight:'0', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
+                                                                        <img className="fixtureImage"  style={{height:'100%', width:'100%'}} src={match.fixture.competition.darkCrest.url} alt="competitionCrest"></img>
+                                                                    </Col>
+                                                                    <Col style={{height:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingRight:'0'}}>   
+                                                                        <h4 style={{fontSize:`${(windowSize.innerHeight/140+windowSize.innerHeight/100)*multFactor}px`, marginBottom:'0'}}>{match.fixture.homeTeam.shortName}</h4>
+                                                                    </Col>
+                                                                    <Col style={{height:'100%',objectFit:'contain','display':"flex",'justifyContent':"center", 'alignItems':'center', paddingLeft:'0'}}>
+                                                                        <img className="fixtureImage" style={{height:'90%', width:'90%'}} src={match.fixture.homeTeam.darkCrest.url} alt="homeTeam"></img>
+                                                                    </Col>
+                                                                    <Col style={{height:'100%', width:'26.6%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
+                                                                        <h2 style={match.fixture.isFullTime ? {fontSize:`${(windowSize.innerHeight/100+windowSize.innerHeight/70)*multFactor}px`, whiteSpace: "nowrap"} : {fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/70}px`}}>{match.fixture.isFullTime ? `${match.fixture.homeScore} - ${match.fixture.awayScore}` : " VS "}  </h2>
+                                                                    </Col>
+                                                                    <Col style={{height:'100%',objectFit:'contain','display':"flex",'justifyContent':"center", 'alignItems':'center', paddingRight:'0'}}>
+                                                                        <img className="fixtureImage" style={{height:'90%', width:'90%'}} src={match.fixture.awayTeam.darkCrest.url} alt="awayTeam"></img>
+                                                                    </Col>
+                                                                    <Col style={{height:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingLeft:'0'}}>   
+                                                                        <h4 style={{fontSize:`${(windowSize.innerHeight/140+windowSize.innerHeight/100)*multFactor}px`, marginBottom:'0'}}>{match.fixture.awayTeam.shortName}</h4>
+                                                                    </Col>
+                                                                </Row>
+                                                                <Row style={{height:'5%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', marginBottom:'3%', paddingBottom:'8%'}}>
+                                                                    <p  style={{fontSize:`${(windowSize.innerHeight/70)}px`}}>{match.fixture.kickOff}</p>
+                                                                </Row>
+                                                            </Col>
                                                         </motion.div>
-                                                    )}
-                                                    <motion.div key={`${i}+${j}+${monthIndex}`} className={match.isNextFixture ? monthsByThirds[months[monthIndex]+"Count"] > 6 ? "smallNextMatch" : "nextMatch" : ""} style={match.isNextFixture ? (match.fixture.homeTeam.name === "Spurs" ? nextHomeMatchBoxStyleMobile : nextAwayMatchBoxStyleMobile) : (match.fixture.homeTeam.name === "Spurs" ? homeMatchBoxStyleMobile : awayMatchBoxStyleMobile) }
-                                                    exit={{opacity: 0, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
-                                                    initial={{opacity: 0, }}
-                                                    animate={{opacity: 1, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
-                                                        <Col style={{height:'100%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column'}}>
-                                                            <Row style={{height:'95%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingTop:'5%'}}>
-                                                                <Col style={{height:'100%', width:'20%', paddingLeft:'2%', paddingRight:'0', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
-                                                                    <img className="fixtureImage"  style={{height:'100%', width:'100%'}} src={match.fixture.competition.darkCrest.url} alt="competitionCrest"></img>
-                                                                </Col>
-                                                                <Col style={{height:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingRight:'0'}}>   
-                                                                    <h4 style={{fontSize:`${(windowSize.innerHeight/140+windowSize.innerHeight/100)*multFactor}px`, marginBottom:'0'}}>{match.fixture.homeTeam.shortName}</h4>
-                                                                </Col>
-                                                                <Col style={{height:'100%',objectFit:'contain','display':"flex",'justifyContent':"center", 'alignItems':'center', paddingLeft:'0'}}>
-                                                                    <img className="fixtureImage" style={{height:'90%', width:'90%'}} src={match.fixture.homeTeam.darkCrest.url} alt="homeTeam"></img>
-                                                                </Col>
-                                                                <Col style={{height:'100%', width:'26.6%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
-                                                                    <h2 style={match.fixture.isFullTime ? {fontSize:`${(windowSize.innerHeight/100+windowSize.innerHeight/70)*multFactor}px`, whiteSpace: "nowrap"} : {fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/70}px`}}>{match.fixture.isFullTime ? `${match.fixture.homeScore} - ${match.fixture.awayScore}` : " VS "}  </h2>
-                                                                </Col>
-                                                                <Col style={{height:'100%',objectFit:'contain','display':"flex",'justifyContent':"center", 'alignItems':'center', paddingRight:'0'}}>
-                                                                    <img className="fixtureImage" style={{height:'90%', width:'90%'}} src={match.fixture.awayTeam.darkCrest.url} alt="awayTeam"></img>
-                                                                </Col>
-                                                                <Col style={{height:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingLeft:'0'}}>   
-                                                                    <h4 style={{fontSize:`${(windowSize.innerHeight/140+windowSize.innerHeight/100)*multFactor}px`, marginBottom:'0'}}>{match.fixture.awayTeam.shortName}</h4>
-                                                                </Col>
-                                                            </Row>
-                                                            <Row style={{height:'5%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', marginBottom:'3%', paddingBottom:'8%'}}>
-                                                                <p  style={{fontSize:`${(windowSize.innerHeight/70)}px`}}>{match.fixture.kickOff}</p>
-                                                            </Row>
-                                                        </Col>
+                                                    </div>
+                                                    {match.isNextFixture && (
+                                                    <motion.div
+                                                    exit={{opacity: 0, transition: {duration: 1}}}
+                                                    initial={{opacity: 0}}
+                                                    animate={{opacity: 1, transition: {duration: 1}}}
+                                                    style={{position:'absolute', paddingTop:windowSize.innerHeight/80}}>
+                                                        <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/39}px`,zIndex:2}}
+                                                        exit={{opacity: 0, transition: {duration: 1}}}
+                                                        initial={{opacity: 1}}
+                                                        animate={{opacity: 0, scale: 1.25, transition: {duration: 3,repeat: Infinity,ease: 'linear'}}}>
+
+                                                        </motion.div>
                                                     </motion.div>
+                                                    )
+                                                    }
+                                                    {match.isNextFixture && (
+                                                        <motion.div
+                                                        exit={{opacity: 0, transition: {duration: 1}}}
+                                                        initial={{opacity: 0}}
+                                                        animate={{opacity: 1, transition: {duration: 1}}}
+                                                        style={{position:'absolute', paddingTop:windowSize.innerHeight/80}}>
+                                                            <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/39}px`,zIndex:2}}
+                                                            exit={{opacity: 0, transition: {duration: 1}}}
+                                                            initial={{opacity: 1}}
+                                                            animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 1}}}>
+
+                                                            </motion.div>
+                                                        </motion.div>
+                                                    )
+                                                    }
+                                                    {match.isNextFixture && (
+                                                        <motion.div
+                                                        exit={{opacity: 0, transition: {duration: 1}}}
+                                                        initial={{opacity: 0}}
+                                                        animate={{opacity: 1, transition: {duration: 1}}}
+                                                        style={{position:'absolute', paddingTop:windowSize.innerHeight/80}}>
+                                                            <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/39}px`,zIndex:2}}
+                                                            exit={{opacity: 0, transition: {duration: 1}}}
+                                                            initial={{opacity: 1}}
+                                                            animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 2}}}>
+
+                                                            </motion.div>
+                                                        </motion.div>
+                                                    )
+                                                    }
                                                     <div style={match.isNextFixture ? {paddingBottom:'3%'}:{}}>
     
                                                     </div>
