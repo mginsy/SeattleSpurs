@@ -24,6 +24,8 @@ function About() {
     const lng = -122.3;
     const zoom = isMobile ? 8 : 9;
 
+    const description = "Our humble beginnings began in January 2014 when we were officially recognized by Tottenham Hotspur. Shortly afterwards, we learned of the friendly to be played by Spurs against the Seattle Sounders that summer. Our mark was made in the realm of football in the Puget Sound area. We are proud to represent the Puget Sound Area. We are proud to represent Tottenham Hotspurs. We are the Seattle Spurs Supporters Club. Come On You Spurs!!"
+
     useEffect(() => {
         function handleWindowResize() {
           setWindowSize(getWindowSize());
@@ -132,10 +134,7 @@ function About() {
                         exit={{opacity: 0, x:windowSize.innerWidth/2, transition: {duration: 1}}}
                         initial={{opacity: 0, x:windowSize.innerWidth/2}}
                         animate={{opacity: 1, x:0, transition: {duration: 1}}}>
-                            <p className='homeText' style={{fontSize:windowSize.innerHeight/90+windowSize.innerWidth/110, paddingRight:'2%', paddingLeft:'2%'}}>Welcome to the home of Seattle Spurs, the Official Tottenham Hotspur Supporters Club in the Puget Sound region since 2014!
-Whether you're a seasoned Spurs supporter or are just now falling in love with Lilywhite - we'd love to welcome you to our club.
-You'll find us at the Whit's End Bar in Seattle's Phinney Ridge neighborhood for all live match viewings - no matter the hour. All ages, all people, and all dogs allowed!
-Be sure to follow us on Twitter and Facebook for all the latest updates!</p>
+                            <p className='homeText' style={{fontSize:windowSize.innerHeight/90+windowSize.innerWidth/110, paddingRight:'2%', paddingLeft:'2%'}}>{description}</p>
                         </motion.div> 
                     </Col>
                 </Row>
@@ -200,10 +199,7 @@ Be sure to follow us on Twitter and Facebook for all the latest updates!</p>
                         exit={{opacity: 0, x:-windowSize.innerWidth*2/3, transition: {duration: 1}}}
                         initial={{opacity: 0, x:-windowSize.innerWidth*2/3}}
                         animate={{opacity: 1, x:0, transition: {duration: 1}}}>
-                            <p className='homeText' style={{fontSize:windowSize.innerHeight/120+windowSize.innerWidth/150, paddingRight:'2%', paddingLeft:'2%'}}>Welcome to the home of Seattle Spurs, the Official Tottenham Hotspur Supporters Club in the Puget Sound region since 2014!
-    Whether you're a seasoned Spurs supporter or are just now falling in love with Lilywhite - we'd love to welcome you to our club.
-    You'll find us at the Whit's End Bar in Seattle's Phinney Ridge neighborhood for all live match viewings - no matter the hour. All ages, all people, and all dogs allowed!
-    Be sure to follow us on Twitter and Facebook for all the latest updates!</p>
+                            <p className='homeText' style={{fontSize:windowSize.innerHeight/120+windowSize.innerWidth/150, paddingRight:'2%', paddingLeft:'2%'}}>{description}</p>
                         </motion.div>        
                         </Row>
                     </Col>
