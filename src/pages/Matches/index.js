@@ -348,7 +348,7 @@ function Matches() {
                                                     {new Date(match.fixture.kickOff) < currentDate ? (
                                                         <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? ({fontSize:`${windowSize.innerHeight/70}px`}) : ({fontSize:`${windowSize.innerHeight/53}px`})}> </p>
                                                     ) : (
-                                                        <motion.div key={`${i}+${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth/divideFactor*1.1+12}px`, zIndex:3}: {paddingBottom:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginBottom:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth/divideFactor+32}px`, zIndex:3}: {paddingBottom:'2%'}}
+                                                        <motion.div key={`${i}+${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth/divideFactor*1.1+12}px`, zIndex:3}: {paddingBottom:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginBottom:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth/divideFactor+32}px`, zIndex:3}: {paddingBottom:windowSize.innerHeight/100}}
                                                         exit={{opacity: 0, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
                                                         initial={{opacity: 0, }}
                                                         animate={{opacity: 1, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
@@ -397,7 +397,7 @@ function Matches() {
                                                     exit={{opacity: 0, transition: {duration: 1}}}
                                                     initial={{opacity: 0}}
                                                     animate={{opacity: 1, transition: {duration: 1}}}
-                                                    style={{position:'absolute'}}>
+                                                    style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
                                                         initial={{opacity: 1}}
@@ -412,7 +412,7 @@ function Matches() {
                                                     exit={{opacity: 0, transition: {duration: 1}}}
                                                     initial={{opacity: 0}}
                                                     animate={{opacity: 1, transition: {duration: 1}}}
-                                                    style={{position:'absolute'}}>
+                                                    style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
                                                         initial={{opacity: 1}}
@@ -427,7 +427,7 @@ function Matches() {
                                                     exit={{opacity: 0, transition: {duration: 1}}}
                                                     initial={{opacity: 0}}
                                                     animate={{opacity: 1, transition: {duration: 1}}}
-                                                    style={{position:'absolute'}}>
+                                                    style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
                                                         initial={{opacity: 1}}
