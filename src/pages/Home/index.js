@@ -70,9 +70,16 @@ function Home() {
         return (
             <div style={{zIndex:'1'}}>
                 <Col style={{width:"100%",height:'100%'}}>
-                    <Row style={{width:'100%',height:"30%", margin:'0',padding:'0'}}>
+                    <motion.div
+                    exit={{opacity: 0, y:200, transition: {duration: 1}}}
+                    initial={{x:windowSize.innerWidth+windowSize.innerWidth/announcementText.length*3}}
+                    animate={{x:-windowSize.innerWidth-windowSize.innerWidth/announcementText.length*3, transition: {duration: 10, delay: .5,repeat: Infinity,ease: 'linear'}}}
+                    style={{textAlign:'center', display:'flex', justifyContent:'center',alignItems:'center', paddingTop:'1%'}}>
+                        <p className="welcomeTo" style={{fontSize:windowSize.innerWidth/30, textDecoration:"none", float:"right", paddingRight:'.5%', paddingLeft:'.5%',backgroundColor:'#ffffff',color:'#132257',width:'fit-content', whiteSpace:'nowrap'}}>{announcementText}</p>
+                    </motion.div>
+                    <Row style={{width:'100%',height:"25%", margin:'0',padding:'0'}}>
                         <Col style={{width:'100%',height:"100%"}}>
-                            <Row style={{textAlign:"center", paddingTop:'6%', width:'100%', margin:'0'}}>
+                            <Row style={{textAlign:"center", width:'100%', margin:'0'}}>
                                 <p>
                                     <motion.div
                                     exit={{opacity: 0, x: 200, transition: {duration: 1}}}
@@ -82,7 +89,7 @@ function Home() {
                                     </motion.div>
                                 </p>
                             </Row>
-                            <Row style={{width: '100%',justifyContent: 'space-between',display: 'flex', paddingTop:'5%', margin:'0'}}>
+                            <Row style={{width: '100%',justifyContent: 'space-between',display: 'flex', margin:'0'}}>
                                 <motion.div
                                 exit={{opacity: 0, x: 200, transition: {duration: 1}}}
                                 initial={{opacity: 0}}
@@ -108,16 +115,9 @@ function Home() {
                         exit={{opacity: 1, x: -windowSize.innerWidth*1, y:200, transition: {duration: 1}}}
                         initial={{opacity: 1, x: windowSize.innerWidth*1.5,y: windowSize.innerHeight*-.2}}
                         animate={{opacity: 1, x: 0, y:0, transition: {duration: 1, ease: 'easeOut'}}}
-                        style={{alignItems:"center",justifyContent:"center",display:'flex'}}
+                        style={{alignItems:"start",justifyContent:"center",display:'flex'}}
                         >
                             <img src={sonny} height={windowSize.innerHeight*.6} alt="Sonny"></img>
-                        </motion.div>
-                        <motion.div
-                        exit={{opacity: 0, y:200, transition: {duration: 1}}}
-                        initial={{x:windowSize.innerWidth-windowSize.innerWidth/announcementText.length}}
-                        animate={{x:-windowSize.innerWidth+windowSize.innerWidth/announcementText.length, transition: {duration: 10, delay: .5,repeat: Infinity,ease: 'linear'}}}
-                        style={{textAlign:'center', display:'flex', justifyContent:'center',alignItems:'center'}}>
-                            <p className="welcomeTo" style={{fontSize:windowSize.innerWidth/40, textDecoration:"none", float:"right", paddingRight:'.5%', paddingLeft:'.5%',backgroundColor:'#ffffff',color:'#132257',width:'fit-content', whiteSpace:'nowrap'}}>{announcementText}</p>
                         </motion.div>
                     </Row>
                 </Col>

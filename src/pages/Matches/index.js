@@ -56,16 +56,16 @@ function Matches() {
                     const monthsByThirdsUE = {}
                     let firstMonthIndex = 0
                     let firstMonthFound = false;
-                    for (let i = 0; i < monthsJSONUE.length; i++){
-                        if (monthsJSONUE[i]["isShown"] && !firstMonthFound){
-                            firstMonthIndex = i
+                    for (let y = 0; y < monthsJSONUE.length; y++){
+                        if (monthsJSONUE[y]["isShown"] && !firstMonthFound){
+                            firstMonthIndex = y
                             firstMonthFound = true
                         }
-                        monthsUE.push(monthsJSONUE[i]["month"]);
+                        monthsUE.push(monthsJSONUE[y]["month"]);
                         matchesAvailable = true;
-                        monthsByThirdsUE[monthsJSONUE[i]["month"]] = []
-                        for (let j = 0; j < monthsJSONUE[i]["items"].length; j++){
-                            const item = monthsJSONUE[i]["items"][j]
+                        monthsByThirdsUE[monthsJSONUE[y]["month"]] = []
+                        for (let z = 0; z < monthsJSONUE[y]["items"].length; z++){
+                            const item = monthsJSONUE[y]["items"][z]
                             if (item["fixture"]["kickOffShowingMatch"] in data2){
                                 item["fixture"]["showings"] = data2[item["fixture"]["kickOffShowingMatch"]]
                             }
@@ -73,19 +73,19 @@ function Matches() {
                                 item["fixture"]["showings"] = []
                             }
                             if (!isMobile){
-                                if (j%3===0){
-                                    monthsByThirdsUE[monthsJSONUE[i]["month"]].push([item])
+                                if (z%3===0){
+                                    monthsByThirdsUE[monthsJSONUE[y]["month"]].push([item])
                                 }
                                 else{
-                                    monthsByThirdsUE[monthsJSONUE[i]["month"]][(j-(j%3))/3].push(item)
+                                    monthsByThirdsUE[monthsJSONUE[y]["month"]][(z-(z%3))/3].push(item)
                                 }
                             }
                             else{
-                                monthsByThirdsUE[monthsJSONUE[i]["month"]].push([item])
+                                monthsByThirdsUE[monthsJSONUE[y]["month"]].push([item])
                             }
                             
                         }
-                        monthsByThirdsUE[monthsJSONUE[i]["month"] + "Count"] = monthsJSONUE[i]["items"].length
+                        monthsByThirdsUE[monthsJSONUE[y]["month"] + "Count"] = monthsJSONUE[y]["items"].length
                     }
         
                     setMonths(monthsUE);
@@ -170,13 +170,13 @@ function Matches() {
         if (isMobile){
             return (
                 <div style={{zIndex:'1',minHeight:'100%',minWidth:'100%'}}>
-                 <Row style={{display:'flex',alignItems:'center',justifyContent:'center', textAlign:'center', minHeight:'7%'}}>
+                 <Row style={{display:'flex',alignItems:'center',justifyContent:'center', textAlign:'center', minHeight:'7%', paddingTop:'3%'}}>
                          <Col style={{justifyContent:'right',display:'flex'}}>
                              <motion.div
                              exit={{opacity: 0, y:windowSize.innerHeight*.4, transition: {duration: 1}}}
                              initial={{opacity: 0, y:-windowSize.innerHeight*.3}}
                              animate={{opacity: 1, y:0, transition: {duration: .5}}}>
-                                 <ArrowBackIosNewIcon className="arrowHover" sx={{ color: "#ffffff",fontSize: windowSize.innerWidth/22, cursor:'pointer', ":hover":'color: #756A61' }} onClick={onBackward}/>
+                                 <ArrowBackIosNewIcon className="arrowHover" sx={{ color: "#ffffff",fontSize: windowSize.innerWidth/10, cursor:'pointer', ":hover":'color: #756A61' }} onClick={onBackward}/>
                              </motion.div>
                          </Col>
                          <Col>
@@ -185,7 +185,7 @@ function Matches() {
                              initial={{opacity: 0, y:-windowSize.innerHeight*.3}}
                              animate={{opacity: 1, y:0, transition: {duration: .5}}}
                              style={{display:"flex",flexDirection:'row', alignItems:"center", justifyContent:"center", margin:0}}>
-                                 <h1 className="matchesMonthText" style={{color:"#ffffff",fontSize: windowSize.innerWidth/22, marginBottom:"0"}}>{months[monthIndex]}</h1>
+                                 <h1 className="matchesMonthText" style={{color:"#ffffff",fontSize: windowSize.innerWidth/10, marginBottom:"0"}}>{months[monthIndex]}</h1>
                              </motion.div>
                          </Col>
                          <Col style={{justifyContent:'left',display:'flex'}}>
@@ -193,25 +193,25 @@ function Matches() {
                              exit={{opacity: 0, y:windowSize.innerHeight*.4, transition: {duration: 1}}}
                              initial={{opacity: 0, y:-windowSize.innerHeight*.3}}
                              animate={{opacity: 1, y:0, transition: {duration: .5}}}>    
-                                 <ArrowForwardIosIcon className="arrowHover" sx={{ color: "#ffffff",fontSize: windowSize.innerWidth/22, cursor:'pointer' }} onClick={onForward}/>
+                                 <ArrowForwardIosIcon className="arrowHover" sx={{ color: "#ffffff",fontSize: windowSize.innerWidth/10, cursor:'pointer' }} onClick={onForward}/>
                              </motion.div>
                          </Col>
                      </Row>
-                     <Row style={{height:'92%',display:"flex",justifyContent:"center", alignItems:'center'}}>
-                        <Col style={{height:'100%', width:'100%', display:"flex",justifyContent:"center", alignItems:'center',flexDirection:'column', paddingBottom:'5%',overflow:'auto'}}>
+                     <Row style={{height:'100%',display:"flex"}}>
+                        <Col style={{height:windowSize.innerHeight*.8, width:'100%', display:"flex",alignItems:'center',flexDirection:'column', paddingBottom:'5%',overflowY:'auto', position:'relative', paddingTop:'2%'}}>
                             {monthsByThirds[months[monthIndex]].map(function(monthArr, i) {
                                 return(
                                     <Row key={`${i}row`} style={{height:'100%', width:'100%', display:"flex",justifyContent:"center", alignItems:'center'}}>
                                         {monthArr.map(function(match, j) {
                                             return (
-                                                <div key={`${i}.${j}col`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? {'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column', height:`${windowSize.innerHeight*.1}px`} : {'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column'}}>
-                                                    <div style={{position:'absolute', width:'100%', height:'100%', display:'flex','justifyContent':"center", 'alignItems':'center', flexDirection:'column', zIndex:1}}>
+                                                <div key={`${i}.${j}col`} style={{'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column', height:`${windowSize.innerHeight*.15}px`}}>
+                                                    <div style={{position:'absolute', display:'flex','justifyContent':"center", 'alignItems':'center', flexDirection:'column', zIndex:1}}>
                                                         {new Date(match.fixture.kickOff) >= currentDate && (
-                                                            <motion.div key={`${i}+${i}.${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'5px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'1%'}: {paddingTop:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 12}px`, paddingBottom:'6%'}: {paddingTop:'2%'}}
+                                                            <motion.div key={`${i}+${i}.${j}+${monthIndex}text`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'5px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 32}px`, paddingBottom:'1%'}: {paddingTop:'.5%'}) : match.isNextFixture ? {color:'#132257 !important', backgroundColor:'#ffffff', textAlign:'center', justifyContent:'center', display:'flex',paddingRight:'1%',paddingLeft:'1%', marginTop:'16px', height:`${windowSize.innerHeight/39}px`, width:`${windowSize.innerWidth*.8 + 32}px`, paddingBottom:'10%'}: {paddingTop:'2%'}}
                                                             exit={{opacity: 0, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
                                                             initial={{opacity: 0, }}i
                                                             animate={{opacity: 1, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
-                                                                <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0', paddingBottom:'3%'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0', paddingBottom:'3%'})}>{match.fixture.showings.length > 0 ? (<span key={`${i}.${j}full`}><span key={`${i}.${j}mvl`}>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span key={`${i}.${j}.${k}fulllink`}><a key={`${i}.${j}.${k}link`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span key={`${i}.${j}.${k},`}> ,</span>) : (<span></span>)}</span>)})}</span>) : (<span key={`${i}.${j}nmvlf`}>No Match Viewing Locations Found</span>)}</p>
+                                                                <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/50}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/50}px`, marginBottom:'0', paddingBottom:'3%'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/50)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/50}px`, marginBottom:'0', paddingBottom:'3%'})}>{match.fixture.showings.length > 0 ? (<span key={`${i}.${j}full`}><span key={`${i}.${j}mvl`}>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span key={`${i}.${j}.${k}fulllink`}><a key={`${i}.${j}.${k}link`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/50}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/50}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/50)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/50}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span key={`${i}.${j}.${k},`}> ,</span>) : (<span></span>)}</span>)})}</span>) : (<span key={`${i}.${j}nmvlf`}>No Match Viewing Locations Found</span>)}</p>
                                                             </motion.div>
                                                         )}
                                                         <motion.div key={`${i}+${i}.${j}+${monthIndex}`} className={match.isNextFixture ? monthsByThirds[months[monthIndex]+"Count"] > 6 ? "smallNextMatch" : "nextMatch" : ""} style={match.isNextFixture ? (match.fixture.homeTeam.name === "Spurs" ? nextHomeMatchBoxStyleMobile : nextAwayMatchBoxStyleMobile) : (match.fixture.homeTeam.name === "Spurs" ? homeMatchBoxStyleMobile : awayMatchBoxStyleMobile) }
@@ -240,54 +240,45 @@ function Matches() {
                                                                     </Col>
                                                                 </Row>
                                                                 <Row style={{height:'5%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', marginBottom:'3%', paddingBottom:'8%'}}>
-                                                                    <p  style={{fontSize:`${(windowSize.innerHeight/70)}px`}}>{match.fixture.kickOff}</p>
+                                                                    <p  style={{fontSize:`${(windowSize.innerHeight/60)}px`}}>{match.fixture.kickOff}</p>
                                                                 </Row>
                                                             </Col>
                                                         </motion.div>
                                                     </div>
                                                     {match.isNextFixture && (
-                                                    <motion.div
-                                                    exit={{opacity: 0, transition: {duration: 1}}}
-                                                    initial={{opacity: 0}}
-                                                    animate={{opacity: 1, transition: {duration: 1}}}
-                                                    style={{position:'absolute', paddingTop:windowSize.innerHeight/80}}>
-                                                        <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/39}px`,zIndex:2}}
+                                                    <div
+                                                    style={{position:'absolute', paddingTop:windowSize.innerHeight/23}}>
+                                                        <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/20}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
                                                         initial={{opacity: 1}}
                                                         animate={{opacity: 0, scale: 1.25, transition: {duration: 3,repeat: Infinity,ease: 'linear'}}}>
 
                                                         </motion.div>
-                                                    </motion.div>
+                                                    </div>
                                                     )
                                                     }
                                                     {match.isNextFixture && (
-                                                        <motion.div
-                                                        exit={{opacity: 0, transition: {duration: 1}}}
-                                                        initial={{opacity: 0}}
-                                                        animate={{opacity: 1, transition: {duration: 1}}}
-                                                        style={{position:'absolute', paddingTop:windowSize.innerHeight/80}}>
-                                                            <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/39}px`,zIndex:2}}
+                                                        <div
+                                                        style={{position:'absolute', paddingTop:windowSize.innerHeight/23}}>
+                                                            <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/20}px`,zIndex:2}}
                                                             exit={{opacity: 0, transition: {duration: 1}}}
                                                             initial={{opacity: 1}}
                                                             animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 1}}}>
 
                                                             </motion.div>
-                                                        </motion.div>
+                                                        </div>
                                                     )
                                                     }
                                                     {match.isNextFixture && (
-                                                        <motion.div
-                                                        exit={{opacity: 0, transition: {duration: 1}}}
-                                                        initial={{opacity: 0}}
-                                                        animate={{opacity: 1, transition: {duration: 1}}}
-                                                        style={{position:'absolute', paddingTop:windowSize.innerHeight/80}}>
-                                                            <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/39}px`,zIndex:2}}
+                                                        <div
+                                                        style={{position:'absolute', paddingTop:windowSize.innerHeight/23}}>
+                                                            <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/20}px`,zIndex:2}}
                                                             exit={{opacity: 0, transition: {duration: 1}}}
                                                             initial={{opacity: 1}}
                                                             animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 2}}}>
 
                                                             </motion.div>
-                                                        </motion.div>
+                                                        </div>
                                                     )
                                                     }
                                                     <div style={match.isNextFixture ? {paddingBottom:'3%'}:{}}>
@@ -349,7 +340,7 @@ function Matches() {
                                                         exit={{opacity: 0, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
                                                         initial={{opacity: 0, }}
                                                         animate={{opacity: 1, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
-                                                            <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/53)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/53}px`, marginBottom:'0'})}>{match.fixture.showings.length > 0 ? (<span key={`${i}.${j}full`}><span key={`${i}.${j}mvl`}>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span key={`${i}.${j}.${k}fulllink`}><a key={`${i}.${j}.${k}link`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/70)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span key={`${i}.${j}.${k},`}> ,</span>) : (<span></span>)}</span>)})}</span>) : (<span key={`${i}.${j}nmvlf`}>No Match Viewing Locations Found</span>)}</p>
+                                                            <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/53)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/53}px`, marginBottom:'0'})}>{match.fixture.showings.length > 0 ? (<span key={`${i}.${j}full`}><span key={`${i}.${j}mvl`}>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span key={`${i}.${j}.${k}fulllink`}><a key={`${i}.${j}.${k}link`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/53)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/53}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span key={`${i}.${j}.${k},`}> ,</span>) : (<span></span>)}</span>)})}</span>) : (<span key={`${i}.${j}nmvlf`}>No Match Viewing Locations Found</span>)}</p>
                                                         </motion.div>
                                                     )}
                                                     <motion.div key={`${i}+${i}.${j}+${monthIndex}`} className={match.isNextFixture ? monthsByThirds[months[monthIndex]+"Count"] > 6 ? "smallNextMatch" : "nextMatch" : ""} style={match.isNextFixture ? (match.fixture.homeTeam.name === "Spurs" ? nextHomeMatchBoxStyle : nextAwayMatchBoxStyle) : (match.fixture.homeTeam.name === "Spurs" ? homeMatchBoxStyle : awayMatchBoxStyle) }
@@ -390,10 +381,7 @@ function Matches() {
                                                     </motion.div>
                                                  </div>
                                                  {match.isNextFixture && (
-                                                    <motion.div
-                                                    exit={{opacity: 0, transition: {duration: 1}}}
-                                                    initial={{opacity: 0}}
-                                                    animate={{opacity: 1, transition: {duration: 1}}}
+                                                    <div
                                                     style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
@@ -401,14 +389,11 @@ function Matches() {
                                                         animate={{opacity: 0, scale: 1.25, transition: {duration: 3,repeat: Infinity,ease: 'linear'}}}>
 
                                                         </motion.div>
-                                                    </motion.div>
+                                                    </div>
                                                  )
                                                  }
                                                  {match.isNextFixture && (
-                                                    <motion.div
-                                                    exit={{opacity: 0, transition: {duration: 1}}}
-                                                    initial={{opacity: 0}}
-                                                    animate={{opacity: 1, transition: {duration: 1}}}
+                                                    <div
                                                     style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
@@ -416,14 +401,11 @@ function Matches() {
                                                         animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 1}}}>
 
                                                         </motion.div>
-                                                    </motion.div>
+                                                    </div>
                                                  )
                                                  }
                                                  {match.isNextFixture && (
-                                                    <motion.div
-                                                    exit={{opacity: 0, transition: {duration: 1}}}
-                                                    initial={{opacity: 0}}
-                                                    animate={{opacity: 1, transition: {duration: 1}}}
+                                                    <div
                                                     style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
@@ -431,7 +413,7 @@ function Matches() {
                                                         animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 2}}}>
 
                                                         </motion.div>
-                                                    </motion.div>
+                                                    </div>
                                                  )
                                                  }
                                              </Col>

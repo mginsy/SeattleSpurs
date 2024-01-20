@@ -1,14 +1,16 @@
+/* eslint import/no-webpack-loader-syntax: off */
+
 import React, { useState, useEffect, useRef} from 'react';
 import {motion} from 'framer-motion';
 import {isMobile} from 'react-device-detect';
 import {Row, Col} from 'react-bootstrap';
-import Map, {Marker, Popup} from 'react-map-gl';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl from '!mapbox-gl'
 import spursLogo from '../../photos/spursLogo.png'
 import members from '../../photos/seattleSpursMembers.jpg'
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2luc3kzMDAwIiwiYSI6ImNsb2Frc2llajAxMDMyamxpcTV4M2twaTAifQ.4EwOW1iEmaH8bpj1fB0kVg'
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 function getWindowSize() {
     const {innerWidth, innerHeight} = window;
@@ -19,10 +21,6 @@ function About() {
     
     const mapContainer = useRef(null);
     const map = useRef(null);
-
-    const lat = 47.448;
-    const lng = -122.3;
-    const zoom = isMobile ? 8 : 9;
 
     const description = "Our humble beginnings began in January 2014 when we were officially recognized by Tottenham Hotspur. Shortly afterwards, we learned of the friendly to be played by Spurs against the Seattle Sounders that summer. Our mark was made in the realm of football in the Puget Sound area. We are proud to represent the Puget Sound Area. We are proud to represent Tottenham Hotspur. We are the Seattle Spurs Supporters Club. Come On You Spurs!!"
 
@@ -37,6 +35,11 @@ function About() {
           window.removeEventListener('resize', handleWindowResize);
         };
       }, []);
+
+      const lat = 47.448;
+      const lng = -122.3;
+      console.log(windowSize)
+      const zoom = isMobile ? 7.8 : windowSize.innerHeight > 700 ? 9 : 8.5;
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
@@ -90,7 +93,7 @@ function About() {
     if (isMobile){
         return (
             <div style={{zIndex:'1',minHeight:'100%',minWidth:'100%', justifyContent:"center",alignItems:'center',display:"flex",flexDirection:"column"}}>
-                <Row style={{height:'10%',width:'100%','--bs-gutter-x':'0', paddingTop:'5%'}}>
+                <Row style={{height:'10%',width:'100%','--bs-gutter-x':'0', paddingTop:'2%'}}>
                     <div style={{width:'100%', textAlign:'center', justifyContent:'center'}}>
                         <h1 className='homeText' style={{fontSize:windowSize.innerHeight/30+windowSize.innerWidth/60}}>
                             <motion.span
@@ -120,7 +123,7 @@ function About() {
                         </h1>
                     </div>
                 </Row>
-                <Row style={{height:'50%',width:'100%','--bs-gutter-x':'0', justifyContent:"center",alignItems:'center',display:"flex", marginTop:'6%'}}>
+                <Row style={{height:'50%',width:'100%','--bs-gutter-x':'0', justifyContent:"center",alignItems:'center',display:"flex", marginTop:'2%'}}>
                     <Col style={{height:'100%',width:'50%','--bs-gutter-x':'0', justifyContent:"center",alignItems:'center',display:"flex"}}>
                         <motion.div style={{height:'100%',width:'100%'}}
                         exit={{opacity: 0, x:-windowSize.innerWidth/2, transition: {duration: 1}}}
@@ -138,7 +141,7 @@ function About() {
                         </motion.div> 
                     </Col>
                 </Row>
-                <Row style={{height:'30%',width:'100%','--bs-gutter-x':'0', marginTop:'6%', justifyContent:"center",alignItems:'center',display:"flex"}}>
+                <Row style={{height:'30%',width:'100%','--bs-gutter-x':'0', marginTop:'6%', justifyContent:"center",alignItems:'center',display:"flex",bottom:0}}>
                     <motion.div style={{height:'100%',width:'100%', display:'flex'}}
                     exit={{opacity: 0, y:windowSize.innerHeight/3, transition: {duration: 1}}}
                     initial={{opacity: 0, y:windowSize.innerHeight/3}}
