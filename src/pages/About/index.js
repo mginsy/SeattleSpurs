@@ -24,7 +24,7 @@ function About() {
     const lng = -122.3;
     const zoom = isMobile ? 8 : 9;
 
-    const description = "Our humble beginnings began in January 2014 when we were officially recognized by Tottenham Hotspur. Shortly afterwards, we learned of the friendly to be played by Spurs against the Seattle Sounders that summer. Our mark was made in the realm of football in the Puget Sound area. We are proud to represent the Puget Sound Area. We are proud to represent Tottenham Hotspurs. We are the Seattle Spurs Supporters Club. Come On You Spurs!!"
+    const description = "Our humble beginnings began in January 2014 when we were officially recognized by Tottenham Hotspur. Shortly afterwards, we learned of the friendly to be played by Spurs against the Seattle Sounders that summer. Our mark was made in the realm of football in the Puget Sound area. We are proud to represent the Puget Sound Area. We are proud to represent Tottenham Hotspur. We are the Seattle Spurs Supporters Club. Come On You Spurs!!"
 
     useEffect(() => {
         function handleWindowResize() {

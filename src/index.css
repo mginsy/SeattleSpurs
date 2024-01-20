@@ -591,7 +591,11 @@ a {
 }
 
 .image-gallery-image{
-  max-height:70vh !important;
+  max-height:60vh !important;
+}
+
+.image-gallery{
+  max-width: 80vw !important;
 }
 
 @media only screen and (max-width: 600px) {

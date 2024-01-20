@@ -127,14 +127,21 @@ function Home() {
     else{
         return (
             <div style={{zIndex:'1'}}>
-                <Row style={{paddingTop:'2.5%', textAlign:'right'}}>
+                <Row style={{paddingTop:'1%', textAlign:'right'}}>
+                    <motion.div
+                    exit={{opacity: 0, y:200, transition: {duration: 1}}}
+                    initial={{x:windowSize.innerWidth-announcementText.length*windowSize.innerWidth/360}}
+                    animate={{x:-windowSize.innerWidth+announcementText.length*windowSize.innerWidth/360, transition: {duration: 18, delay: .5,repeat: Infinity,ease: 'linear'}}}
+                    style={{textAlign:'center', display:'flex', justifyContent:'center',alignItems:'center'}}>
+                        <p className="welcomeTo" style={{fontSize:windowSize.innerWidth/90, textDecoration:"none", float:"right", paddingRight:'.5%', paddingLeft:'.5%',backgroundColor:'#ffffff',color:'#132257',width:'fit-content', whiteSpace:'nowrap'}}>{announcementText}</p>
+                    </motion.div>
                     <Col className='homeCol'>
                         <motion.div
                         exit={{opacity: 1, x: -1000, y:200, transition: {duration: 1}}}
                         initial={{opacity: 1, x: windowSize.innerWidth*1.5,y: windowSize.innerHeight*-.2}}
                         animate={{opacity: 1, x: 0, y:0, transition: {duration: 1, ease: 'easeOut'}}}
                         >
-                            <img src={sonny} height={windowSize.innerHeight*.77} alt="Sonny"></img>
+                            <img src={sonny} height={windowSize.innerHeight*.74} alt="Sonny"></img>
                         </motion.div>
                     </Col>
                     <Col className='homeCol homeColRight'>
@@ -173,13 +180,6 @@ function Home() {
                     initial={{opacity: 0}}
                     animate={{opacity: 1, transition: {duration: 1}}}>
                         <a className="welcomeTo" style={{fontSize:windowSize.innerWidth/90, textDecoration:"none", float:"right", paddingRight:'3%'}} href={"https://www.linkedin.com/in/max-ginsberg-729215159/"} target="_blank" rel="noreferrer">Website Made by Max Ginsberg</a>
-                    </motion.div>
-                    <motion.div
-                    exit={{opacity: 0, y:200, transition: {duration: 1}}}
-                    initial={{x:windowSize.innerWidth-announcementText.length*windowSize.innerWidth/360}}
-                    animate={{x:-windowSize.innerWidth+announcementText.length*windowSize.innerWidth/360, transition: {duration: 18, delay: .5,repeat: Infinity,ease: 'linear'}}}
-                    style={{textAlign:'center', display:'flex', justifyContent:'center',alignItems:'center'}}>
-                        <p className="welcomeTo" style={{fontSize:windowSize.innerWidth/90, textDecoration:"none", float:"right", paddingRight:'.5%', paddingLeft:'.5%',backgroundColor:'#ffffff',color:'#132257',width:'fit-content', whiteSpace:'nowrap'}}>{announcementText}</p>
                     </motion.div>
                 </Row>
             </div>

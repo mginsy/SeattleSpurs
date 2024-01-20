@@ -74,7 +74,7 @@ function Gallery() {
                                 style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                                     <Row style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                                         <Col style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                            <ImageGallery items={photoArr}/>     
+                                            <ImageGallery items={photoArr} autoPlay={true}/>     
                                         </Col>   
                                     </Row>
                             </motion.div>
@@ -105,7 +105,7 @@ function Gallery() {
                                 style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                                     <Row style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
                                         <Col style={{height:'100%',width:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                            <ImageGallery items={photoArr}/>     
+                                            <ImageGallery items={photoArr} autoPlay={true}/>     
                                         </Col>   
                                     </Row>
                             </motion.div>

@@ -157,7 +157,7 @@ function Contact() {
                                 onClick={sendEmail}
                                 size="large"
                                 to={{pathname: "/contactThanks"}}
-                                loadingIndicator="Loading…"
+                                
                                 variant="outlined"
                                 style={{width:'40%'}}>
                                 Submit
@@ -205,7 +205,7 @@ function Contact() {
                             onClick={sendEmail}
                             size="large"
                             to={{pathname: "/contactThanks"}}
-                            loadingIndicator="Loading…"
+                            
                             variant="outlined"
                             style={{width:'17%'}}>
                             Submit
