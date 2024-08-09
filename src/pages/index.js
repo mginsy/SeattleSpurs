@@ -13,8 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Navbar as BSNavbar, Nav } from 'react-bootstrap'
 import {isMobile} from 'react-device-detect';
-import spursRainier from '../photos/spurs-rainier.png';
-import spursRainierTaupe from '../photos/spurs-rainier-taupe.png';
+import spursLogo from '../photos/seattle-spurs-logo-2024.png';
 import NET from 'vanta/dist/vanta.net.min.js'
 import {Row, Col} from 'react-bootstrap';
 import vantaStable from './VantaStable.png'
@@ -56,11 +55,11 @@ function Navbar(props) {
     
     if (isMobile){
         return (
-            <BSNavbar expand="lg" {...props} style={{"--bs-navbar-padding-y":0, justifyContent:"space-evenly", paddingTop:'5%'}} expanded={expanded}>
-                <Link to="/" className="navbar-brand" style={isMobile ? {"fontSize" : "50px", "marginLeft": "20px", "marginRight": "30px", display:'flex',height:'100%',alignItems:'end'} : {"fontSize" : "50px", "marginLeft": "60px", "marginRight": "80px", display:'flex',height:'100%',alignItems:'end'}}  onClick={() => setExpanded(false)}>
-                    <img src={spursRainier} height={`${windowSize.innerHeight/15}px`}
-                    onMouseOver={e => (e.currentTarget.src = spursRainierTaupe)}
-                    onMouseOut={e => (e.currentTarget.src = spursRainier)}></img>
+            <BSNavbar expand="lg" {...props} style={{"--bs-navbar-padding-y":0, justifyContent:"space-evenly", paddingTop:'2%'}} expanded={expanded}>
+                <Link to="/" className="navbar-brand" style={isMobile ? {"fontSize" : "50px", "marginLeft": "20px", "marginRight": "30px", display:'flex',height:'100%',alignItems:'center', paddingBottom:'2%'} : {"fontSize" : "50px", "marginLeft": "60px", "marginRight": "80px", display:'flex',height:'100%',alignItems:'center', paddingBottom:'2%'}}  onClick={() => setExpanded(false)}>
+                    <img src={spursLogo} height={`${windowSize.innerHeight/12}px`}
+                    /*onMouseOver={e => (e.currentTarget.src = spursRainierTaupe)}
+                    onMouseOut={e => (e.currentTarget.src = spursRainier)}*/></img>
                 </Link>
                 <BSNavbar.Toggle aria-controls="navbar-nav" style={{borderColor:"#ffffff"}}  onClick={() => setExpanded(!expanded)}>
                     <FontAwesomeIcon icon={faBars} style={{color: "#ffffff"}} />
@@ -98,10 +97,10 @@ function Navbar(props) {
     else{
         return (
             <BSNavbar expand="lg" {...props} style={{"--bs-navbar-padding-y":0, height:`${windowSize.innerHeight/8.5}px`}}>
-                <Link to="/" className="navbar-brand" style={isMobile ? {"fontSize" : "50px", "marginLeft": "20px", "marginRight": "30px", display:'flex',height:'100%',alignItems:'end'} : {"fontSize" : "50px", "marginLeft": "60px", "marginRight": "80px", display:'flex',height:'100%',alignItems:'end'}}>
-                    <img src={spursRainier} height={`${windowSize.innerHeight/10.09}px`}
-                    onMouseOver={e => (e.currentTarget.src = spursRainierTaupe)}
-                    onMouseOut={e => (e.currentTarget.src = spursRainier)}></img>
+                <Link to="/" className="navbar-brand" style={isMobile ? {"fontSize" : "50px", "marginLeft": "20px", "marginRight": "30px", display:'flex',height:'100%',alignItems:'center'} : {"fontSize" : "50px", "marginLeft": "60px", "marginRight": "80px", display:'flex',height:'100%',alignItems:'center'}}>
+                    <img src={spursLogo} height={`${windowSize.innerHeight/9.3}px`}
+                    /*onMouseOver={e => (e.currentTarget.src = spursRainierTaupe)}
+                    onMouseOut={e => (e.currentTarget.src = spursRainier)}*/></img>
                 </Link>
                 <BSNavbar.Toggle aria-controls="navbar-nav" />
 
