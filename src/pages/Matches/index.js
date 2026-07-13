@@ -11,6 +11,13 @@ function getWindowSize() {
     const {innerWidth, innerHeight} = window;
     return {innerWidth, innerHeight};
 }
+function CompetitionCrest({url, name, className, style}) {
+    const [errored, setErrored] = useState(false);
+    if (!url || errored) {
+        return (<p style={{fontSize:'0.8em', margin:0}}>{name}</p>);
+    }
+    return (<img className={className} style={style} src={url} alt="competitionCrest" onError={() => setErrored(true)}></img>);
+}
 function Matches() {
 
     const [windowSize, setWindowSize] = useState(getWindowSize());
@@ -221,19 +228,19 @@ function Matches() {
                                                             <Col style={{height:'100%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column'}}>
                                                                 <Row style={{height:'95%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingTop:'5%'}}>
                                                                     <Col style={{height:'100%', width:'20%', paddingLeft:'2%', paddingRight:'0', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
-                                                                        <img className="fixtureImage"  style={{height:'100%', width:'100%'}} src={match.fixture.competition.darkCrest.url} alt="competitionCrest"></img>
+                                                                        <CompetitionCrest className="fixtureImage" style={{height:'100%', width:'100%'}} url={match.fixture.competition.darkCrest.url} name={match.fixture.competition.name} />
                                                                     </Col>
-                                                                    <Col style={{height:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingRight:'0'}}>   
+                                                                    <Col style={{height:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingRight:'0'}}>
                                                                         <h4 style={{fontSize:`${(windowSize.innerHeight/140+windowSize.innerHeight/100)*multFactor}px`, marginBottom:'0'}}>{match.fixture.homeTeam.shortName}</h4>
                                                                     </Col>
                                                                     <Col style={{height:'100%',objectFit:'contain','display':"flex",'justifyContent':"center", 'alignItems':'center', paddingLeft:'0'}}>
-                                                                        <img className="fixtureImage" style={{height:'90%', width:'90%'}} src={match.fixture.homeTeam.darkCrest.url} alt="homeTeam"></img>
+                                                                        <img className="fixtureImage" style={{height:'80%', width:'80%'}} src={match.fixture.homeTeam.darkCrest.url} alt="homeTeam"></img>
                                                                     </Col>
                                                                     <Col style={{height:'100%', width:'26.6%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
                                                                         <h2 style={match.fixture.isFullTime ? {fontSize:`${(windowSize.innerHeight/100+windowSize.innerHeight/70)*multFactor}px`, whiteSpace: "nowrap"} : {fontSize:`${windowSize.innerHeight/100+windowSize.innerHeight/70}px`}}>{match.fixture.isFullTime ? `${match.fixture.homeScore} - ${match.fixture.awayScore}` : " VS "}  </h2>
                                                                     </Col>
                                                                     <Col style={{height:'100%',objectFit:'contain','display':"flex",'justifyContent':"center", 'alignItems':'center', paddingRight:'0'}}>
-                                                                        <img className="fixtureImage" style={{height:'90%', width:'90%'}} src={match.fixture.awayTeam.darkCrest.url} alt="awayTeam"></img>
+                                                                        <img className="fixtureImage" style={{height:'80%', width:'80%'}} src={match.fixture.awayTeam.darkCrest.url} alt="awayTeam"></img>
                                                                     </Col>
                                                                     <Col style={{height:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', paddingLeft:'0'}}>   
                                                                         <h4 style={{fontSize:`${(windowSize.innerHeight/140+windowSize.innerHeight/100)*multFactor}px`, marginBottom:'0'}}>{match.fixture.awayTeam.shortName}</h4>
@@ -351,7 +358,7 @@ function Matches() {
                                                             <Row style={{height:'90%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
                                                                 <Col style={{height:'100%', width:'80%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column',paddingRight:'0%',paddingLeft:'0%', paddingTop:'4%'}}>
                                                                     <Row style={{height:'100%', width:'100%',objectFit:'contain','display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
-                                                                        <img className="fixtureImage" style={{height:'90%', width:'90%'}} src={match.fixture.homeTeam.darkCrest.url} alt="homeTeam"></img>
+                                                                        <img className="fixtureImage" style={{height:'80%', width:'80%'}} src={match.fixture.homeTeam.darkCrest.url} alt="homeTeam"></img>
                                                                     </Row>
                                                                     <Row>   
                                                                         <h4 style={{fontSize:`${(windowSize.innerHeight/70+windowSize.innerHeight/120)*multFactor}px`}}>{match.fixture.homeTeam.shortName}</h4>
@@ -359,7 +366,7 @@ function Matches() {
                                                                 </Col>
                                                                 <Col style={{height:'100%', maxWidth:'20%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column'}}>
                                                                     <Row style={{height:'30%', marginBottom:'60%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', marginTop:'20%'}}>
-                                                                        <img className="fixtureImage"  style={{height:'100%', width:'100%'}} src={match.fixture.competition.darkCrest.url} alt="competitionCrest"></img>
+                                                                        <CompetitionCrest className="fixtureImage" style={{height:'100%', width:'100%'}} url={match.fixture.competition.darkCrest.url} name={match.fixture.competition.name} />
                                                                     </Row>
                                                                     <Row style={{marginBottom:'60%'}}>
                                                                         <h2 style={match.fixture.isFullTime ? {fontSize:`${(windowSize.innerHeight/50+windowSize.innerHeight/80)*multFactor}px`, whiteSpace: "nowrap"} : {fontSize:`${windowSize.innerHeight/50+windowSize.innerHeight/80}px`}}>{match.fixture.isFullTime ? `${match.fixture.homeScore} - ${match.fixture.awayScore}` : " VS "}  </h2>
@@ -367,14 +374,14 @@ function Matches() {
                                                                 </Col>
                                                                 <Col style={{height:'100%', width:'80%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', flexDirection:'column',paddingRight:'0%',paddingLeft:'0%', paddingTop:'4%'}}>
                                                                     <Row style={{height:'100%', width:'100%',objectFit:'contain','display':"flex",'justifyContent':"center", 'alignItems':'center'}}>
-                                                                        <img className="fixtureImage" style={{height:'90%', width:'90%'}} src={match.fixture.awayTeam.darkCrest.url} alt="awayTeam"></img>
+                                                                        <img className="fixtureImage" style={{height:'80%', width:'80%'}} src={match.fixture.awayTeam.darkCrest.url} alt="awayTeam"></img>
                                                                     </Row>
                                                                     <Row>   
                                                                         <h4 style={{fontSize:`${(windowSize.innerHeight/70+windowSize.innerHeight/120)*multFactor}px`}}>{match.fixture.awayTeam.shortName}</h4>
                                                                     </Row>
                                                                 </Col>
                                                             </Row>
-                                                            <Row style={{height:'10%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', marginBottom:'0%', paddingBottom:'8%', paddingTop:monthsByThirds[months[monthIndex]+"Count"] > 6 ? "0%" : '1%'}}>
+                                                            <Row style={{height:'10%', width:'100%', 'textAlign':"center",'display':"flex",'justifyContent':"center", 'alignItems':'center', marginBottom:'0%', paddingBottom:'8%', paddingTop:monthsByThirds[months[monthIndex]+"Count"] > 6 ? "1%" : '2%'}}>
                                                                 <p  style={{fontSize:`${(windowSize.innerHeight/120+windowSize.innerHeight/160)*multFactor}px`}}>{match.fixture.kickOff}</p>
                                                             </Row>
                                                         </Col>

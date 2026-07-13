@@ -3,7 +3,7 @@ import {motion} from 'framer-motion';
 import {isMobile} from 'react-device-detect';
 import {Row, Col} from 'react-bootstrap';
 import mapboxgl from 'mapbox-gl';
-import sonny from '../../photos/Sonny.png'
+import mickey from '../../photos/mickey.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {Button} from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -117,7 +117,7 @@ function Home() {
                         animate={{opacity: 1, x: 0, y:0, transition: {duration: 1, ease: 'easeOut'}}}
                         style={{alignItems:"start",justifyContent:"center",display:'flex'}}
                         >
-                            <img src={sonny} height={windowSize.innerHeight*.6} alt="Sonny"></img>
+                            <img src={mickey} height={windowSize.innerHeight*.6} alt="VDV"></img>
                         </motion.div>
                     </Row>
                 </Col>
@@ -141,7 +141,7 @@ function Home() {
                         initial={{opacity: 1, x: windowSize.innerWidth*1.5,y: windowSize.innerHeight*-.2}}
                         animate={{opacity: 1, x: 0, y:0, transition: {duration: 1, ease: 'easeOut'}}}
                         >
-                            <img src={sonny} height={windowSize.innerHeight*.74} alt="Sonny"></img>
+                            <img src={mickey} height={windowSize.innerHeight*.74} alt="VDV"></img>
                         </motion.div>
                     </Col>
                     <Col className='homeCol homeColRight'>

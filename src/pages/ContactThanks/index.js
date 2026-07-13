@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 import {isMobile} from 'react-device-detect';
-import ange from "../../photos/ange.png"
+import porro from "../../photos/porro.png"
 //import 'react-calendar/dist/Calendar.css';
 
 const formColor = 'rgba(117, 106, 97, .7)'
@@ -67,7 +67,7 @@ function ContactThanks() {
                     </Link>
                 </Row>
                 <Row style={{height:"70%",width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                    <img src={ange} height={windowSize.innerHeight*.6} alt="Ange" style={{bottom:0, right:0,position:'absolute',objectFit: 'cover', paddingRight:0,paddingLeft:0, width:'100%'}}></img>
+                    <img src={porro} height={windowSize.innerHeight*.6} alt="Porro" style={{bottom:0, right:0,position:'absolute',objectFit: 'cover', paddingRight:0,paddingLeft:0, width:'100%'}}></img>
                 </Row>
             </Col>
         </motion.div>
@@ -82,7 +82,7 @@ function ContactThanks() {
                 animate={{opacity: 1, transition: {duration: 1}}}>
                 <Row style={{height:"100%",width:'90%'}}>
                     <Col style={{height:"100%",width:'50%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                        <img src={ange} height={windowSize.innerHeight*.75} alt="Ange" style={{bottom:0, position:'absolute'}}></img>
+                        <img src={porro} height={windowSize.innerHeight*.75} alt="Porro" style={{bottom:0, position:'absolute'}}></img>
                     </Col>
                     <Col style={{height:"100%",width:'50%', display:'flex', justifyContent:'center', alignItems:'center',textAlign:'center', flexDirection:'column'}}>
                         <h3 className="welcomeTo" style={{fontSize:windowSize.innerWidth/35, zIndex:1}}>Thanks for submitting!</h3>
