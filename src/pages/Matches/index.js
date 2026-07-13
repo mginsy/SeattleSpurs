@@ -257,8 +257,8 @@ function Matches() {
                                                     style={{position:'absolute', paddingTop:windowSize.innerHeight/23}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/20}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
-                                                        initial={{opacity: 1}}
-                                                        animate={{opacity: 0, scale: 1.25, transition: {duration: 3,repeat: Infinity,ease: 'linear'}}}>
+                                                        initial={{opacity: 0, scale: 1}}
+                                                        animate={{opacity: [0, 1, 0], scale: [1, 1, 1.25], transition: {duration: 3,repeat: Infinity,times: [0, 0.05, 1],ease: 'linear'}}}>
 
                                                         </motion.div>
                                                     </div>
@@ -269,8 +269,8 @@ function Matches() {
                                                         style={{position:'absolute', paddingTop:windowSize.innerHeight/23}}>
                                                             <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/20}px`,zIndex:2}}
                                                             exit={{opacity: 0, transition: {duration: 1}}}
-                                                            initial={{opacity: 1}}
-                                                            animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 1}}}>
+                                                            initial={{opacity: 0, scale: 1}}
+                                                            animate={{opacity: [0, 1, 0], scale: [1, 1, 1.25] ,transition: {duration: 3,repeat: Infinity,times: [0, 0.05, 1],ease: 'linear',delay: 1}}}>
 
                                                             </motion.div>
                                                         </div>
@@ -281,8 +281,8 @@ function Matches() {
                                                         style={{position:'absolute', paddingTop:windowSize.innerHeight/23}}>
                                                             <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth*.8}px`,minHeight:`${windowSize.innerHeight*.08 + windowSize.innerHeight/20}px`,zIndex:2}}
                                                             exit={{opacity: 0, transition: {duration: 1}}}
-                                                            initial={{opacity: 1}}
-                                                            animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 2}}}>
+                                                            initial={{opacity: 0, scale: 1}}
+                                                            animate={{opacity: [0, 1, 0], scale: [1, 1, 1.25] ,transition: {duration: 3,repeat: Infinity,times: [0, 0.05, 1],ease: 'linear',delay: 2}}}>
 
                                                             </motion.div>
                                                         </div>
@@ -306,8 +306,8 @@ function Matches() {
         else{
             return (
                 <div style={{zIndex:'1',minHeight:'100%',minWidth:'100%'}}>
-                 <Row style={{display:'flex',alignItems:'center',justifyContent:'center', textAlign:'center', height:'11%',paddingTop:'1%'}}>
-                         <Col style={{justifyContent:'right',display:'flex'}}>
+                 <Row style={{display:'flex',alignItems:'center',justifyContent:'center', textAlign:'center', height:'11%',paddingTop:'1%', flexWrap:'nowrap'}}>
+                         <Col xs="auto" style={{justifyContent:'right',display:'flex'}}>
                              <motion.div
                              exit={{opacity: 0, y:windowSize.innerHeight*.4, transition: {duration: 1}}}
                              initial={{opacity: 0, y:-windowSize.innerHeight*.3}}
@@ -315,19 +315,19 @@ function Matches() {
                                  <ArrowBackIosNewIcon className="arrowHover" sx={{ color: "#ffffff",fontSize: windowSize.innerWidth/22, cursor:'pointer', ":hover":'color: #756A61' }} onClick={onBackward}/>
                              </motion.div>
                          </Col>
-                         <Col>
+                         <Col xs="auto">
                              <motion.div
                              exit={{opacity: 0, y:windowSize.innerHeight*.4, transition: {duration: 1}}}
                              initial={{opacity: 0, y:-windowSize.innerHeight*.3}}
                              animate={{opacity: 1, y:0, transition: {duration: .5}}}>
-                                 <h1 className="matchesMonthText" style={{color:"#ffffff",fontSize: windowSize.innerWidth/22, marginBottom: '0'}}>{months[monthIndex]}</h1>
+                                 <h1 className="matchesMonthText" style={{color:"#ffffff",fontSize: windowSize.innerWidth/22, marginBottom: '0', marginLeft:`${windowSize.innerWidth/50}px`, marginRight:`${windowSize.innerWidth/50}px`, whiteSpace:'nowrap'}}>{months[monthIndex]}</h1>
                              </motion.div>
                          </Col>
-                         <Col style={{justifyContent:'left',display:'flex'}}>
+                         <Col xs="auto" style={{justifyContent:'left',display:'flex'}}>
                              <motion.div
                              exit={{opacity: 0, y:windowSize.innerHeight*.4, transition: {duration: 1}}}
                              initial={{opacity: 0, y:-windowSize.innerHeight*.3}}
-                             animate={{opacity: 1, y:0, transition: {duration: .5}}}>    
+                             animate={{opacity: 1, y:0, transition: {duration: .5}}}>
                                  <ArrowForwardIosIcon className="arrowHover" sx={{ color: "#ffffff",fontSize: windowSize.innerWidth/22, cursor:'pointer' }} onClick={onForward}/>
                              </motion.div>
                          </Col>
@@ -392,8 +392,8 @@ function Matches() {
                                                     style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
-                                                        initial={{opacity: 1}}
-                                                        animate={{opacity: 0, scale: 1.25, transition: {duration: 3,repeat: Infinity,ease: 'linear'}}}>
+                                                        initial={{opacity: 0, scale: 1}}
+                                                        animate={{opacity: [0, 1, 0], scale: [1, 1, 1.25], transition: {duration: 3,repeat: Infinity,times: [0, 0.05, 1],ease: 'linear'}}}>
 
                                                         </motion.div>
                                                     </div>
@@ -404,8 +404,8 @@ function Matches() {
                                                     style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
-                                                        initial={{opacity: 1}}
-                                                        animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 1}}}>
+                                                        initial={{opacity: 0, scale: 1}}
+                                                        animate={{opacity: [0, 1, 0], scale: [1, 1, 1.25] ,transition: {duration: 3,repeat: Infinity,times: [0, 0.05, 1],ease: 'linear',delay: 1}}}>
 
                                                         </motion.div>
                                                     </div>
@@ -416,8 +416,8 @@ function Matches() {
                                                     style={{position:'absolute', paddingTop:'2.5%'}}>
                                                         <motion.div style={{backgroundColor:'#ffffff', minWidth:`${windowSize.innerWidth/divideFactor*1.1}px`,minHeight:`${windowSize.innerHeight/divideFactor + windowSize.innerHeight/39}px`,zIndex:2}}
                                                         exit={{opacity: 0, transition: {duration: 1}}}
-                                                        initial={{opacity: 1}}
-                                                        animate={{opacity: 0, scale: 1.25 ,transition: {duration: 3,repeat: Infinity,ease: 'linear',delay: 2}}}>
+                                                        initial={{opacity: 0, scale: 1}}
+                                                        animate={{opacity: [0, 1, 0], scale: [1, 1, 1.25] ,transition: {duration: 3,repeat: Infinity,times: [0, 0.05, 1],ease: 'linear',delay: 2}}}>
 
                                                         </motion.div>
                                                     </div>
