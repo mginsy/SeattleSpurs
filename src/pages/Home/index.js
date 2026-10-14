@@ -37,7 +37,7 @@ function Home() {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const responseObj = await fetch('https://uh2zy2gtqwbhjtabh7ruj5zgli0tffku.lambda-url.us-west-2.on.aws/')
+            await fetch('https://uh2zy2gtqwbhjtabh7ruj5zgli0tffku.lambda-url.us-west-2.on.aws/')
             .then(function(response) {
                 console.log(response)
                 if (!response.ok) {

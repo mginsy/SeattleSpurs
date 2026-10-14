@@ -34,7 +34,7 @@ function Gallery() {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('https://3j6qqqo3o3wefw6teocmq6lwta0ugeph.lambda-url.us-west-2.on.aws/')
+            await fetch('https://3j6qqqo3o3wefw6teocmq6lwta0ugeph.lambda-url.us-west-2.on.aws/')
             .then(function(response) {
                 if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

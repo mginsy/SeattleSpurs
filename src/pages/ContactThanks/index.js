@@ -3,24 +3,10 @@ import {Col, Row} from 'react-bootstrap'
 import {motion} from 'framer-motion'
 import {Link} from 'react-router-dom'
 import { styled } from '@mui/material/styles';
-import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 import {isMobile} from 'react-device-detect';
 import porro from "../../photos/porro.png"
 //import 'react-calendar/dist/Calendar.css';
-
-const formColor = 'rgba(117, 106, 97, .7)'
-const StyledText = styled(TextField)({
-  '& .MuiInputBase-formControl': {
-    backgroundColor: formColor,
-    color:"#ffffff",
-    fontFamily: ['totReg'].join(',')
-  },
-  '& .MuiInputLabel-formControl': {
-    color:"#ffffff",
-    fontFamily: ['totReg'].join(',')
-  },
-});
 
 function getWindowSize() {
     const {innerWidth, innerHeight} = window;

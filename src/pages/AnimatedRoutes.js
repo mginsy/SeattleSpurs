@@ -1,6 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, useLocation, Routes} from 'react-router-dom'
-import _ from 'lodash'
+import {Route, useLocation, Routes} from 'react-router-dom'
 
 import Home from './Home'
 import About from './About'

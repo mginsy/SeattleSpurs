@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef} from 'react';
-import { BrowserRouter as Switch, Link } from 'react-router-dom'
-import _ from 'lodash'
+import { Link } from 'react-router-dom'
 
 import AnimatedRoutes from './AnimatedRoutes'
 import {
@@ -57,7 +56,7 @@ function Navbar(props) {
         return (
             <BSNavbar expand="lg" {...props} style={{"--bs-navbar-padding-y":0, justifyContent:"space-evenly", paddingTop:'2%'}} expanded={expanded}>
                 <Link to="/" className="navbar-brand" style={isMobile ? {"fontSize" : "50px", "marginLeft": "20px", "marginRight": "30px", display:'flex',height:'100%',alignItems:'center', paddingBottom:'2%'} : {"fontSize" : "50px", "marginLeft": "60px", "marginRight": "80px", display:'flex',height:'100%',alignItems:'center', paddingBottom:'2%'}}  onClick={() => setExpanded(false)}>
-                    <img src={spursLogo} height={`${windowSize.innerHeight/12}px`}
+                    <img src={spursLogo} alt="Seattle Spurs" height={`${windowSize.innerHeight/12}px`}
                     /*onMouseOver={e => (e.currentTarget.src = spursRainierTaupe)}
                     onMouseOut={e => (e.currentTarget.src = spursRainier)}*/></img>
                 </Link>
@@ -98,7 +97,7 @@ function Navbar(props) {
         return (
             <BSNavbar expand="lg" {...props} style={{"--bs-navbar-padding-y":0, height:`${windowSize.innerHeight/8.5}px`}}>
                 <Link to="/" className="navbar-brand" style={isMobile ? {"fontSize" : "50px", "marginLeft": "20px", "marginRight": "30px", display:'flex',height:'100%',alignItems:'center'} : {"fontSize" : "50px", "marginLeft": "60px", "marginRight": "80px", display:'flex',height:'100%',alignItems:'center'}}>
-                    <img src={spursLogo} height={`${windowSize.innerHeight/9.3}px`}
+                    <img src={spursLogo} alt="Seattle Spurs" height={`${windowSize.innerHeight/9.3}px`}
                     /*onMouseOver={e => (e.currentTarget.src = spursRainierTaupe)}
                     onMouseOut={e => (e.currentTarget.src = spursRainier)}*/></img>
                 </Link>

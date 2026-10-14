@@ -111,15 +111,6 @@ function Contact() {
         },
       });
 
-      const ThemedButton = styled(Button) ({
-        color: '#132257',
-        backgroundColor: '#ffffff',
-        fontFamily:'totReg',
-        '&:hover': {
-          backgroundColor: '#756A61',
-          color: '#ffffff'
-        },
-      });
     
     if (isMobile){
         return (

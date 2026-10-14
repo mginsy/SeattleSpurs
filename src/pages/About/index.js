@@ -60,7 +60,7 @@ function About() {
         el.style.height = `${height}px`;
         el.style.backgroundSize = '100%';
 
-        const marker1 = new mapboxgl.Marker(el)
+        new mapboxgl.Marker(el)
         .setLngLat([-122.354010,47.676340])
         .addTo(map.current)
         .setPopup(
@@ -77,7 +77,7 @@ function About() {
           el2.style.height = `${height}px`;
           el2.style.backgroundSize = '100%';
 
-        const marker2 = new mapboxgl.Marker(el2)
+        new mapboxgl.Marker(el2)
         .setLngLat([-122.2939725,47.1920227])
         .addTo(map.current)
         .setPopup(

@@ -43,14 +43,14 @@ function Matches() {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('https://kcqv36sn3gxaqlszkqb6yr63gi0fncvp.lambda-url.us-west-2.on.aws/')
+            await fetch('https://kcqv36sn3gxaqlszkqb6yr63gi0fncvp.lambda-url.us-west-2.on.aws/')
             .then(function(response) {
                 if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
                 }
               return response.json();
             }).then(async function(data) {
-                const reponse2 = await fetch('https://4vmq6evqfxwzajuq2wywdgoc5e0fzuib.lambda-url.us-west-2.on.aws/')
+                await fetch('https://4vmq6evqfxwzajuq2wywdgoc5e0fzuib.lambda-url.us-west-2.on.aws/')
                 .then(function(response) {
                     if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -58,7 +58,6 @@ function Matches() {
                 return response.json();
                 }).then(function(data2) {
                     const monthsUE = [];
-                    let matchesAvailable = false;
                     const monthsJSONUE = data["data"]["months"];
                     const monthsByThirdsUE = {}
                     let firstMonthIndex = 0
@@ -69,7 +68,6 @@ function Matches() {
                             firstMonthFound = true
                         }
                         monthsUE.push(monthsJSONUE[y]["month"]);
-                        matchesAvailable = true;
                         monthsByThirdsUE[monthsJSONUE[y]["month"]] = []
                         for (let z = 0; z < monthsJSONUE[y]["items"].length; z++){
                             const item = monthsJSONUE[y]["items"][z]
@@ -218,7 +216,7 @@ function Matches() {
                                                             exit={{opacity: 0, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
                                                             initial={{opacity: 0, }}i
                                                             animate={{opacity: 1, transition: {duration: 1, delay: (i*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
-                                                                <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/55}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/55}px`, marginBottom:'0', paddingBottom:'3%'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/55)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/55}px`, marginBottom:'0', paddingBottom:'3%'})}>{match.fixture.showings.length > 0 ? (<span key={`${i}.${j}full`}><span key={`${i}.${j}mvl`}>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span key={`${i}.${j}.${k}fulllink`}><a key={`${i}.${j}.${k}link`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/55}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/55}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/55)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/55}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span key={`${i}.${j}.${k},`}>, </span>) : (<span></span>)}</span>)})}</span>) : (<span key={`${i}.${j}nmvlf`}>No Match Viewing Locations Found</span>)}</p>
+                                                                <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/55}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/55}px`, marginBottom:'0', paddingBottom:'3%'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/55)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/55}px`, marginBottom:'0', paddingBottom:'3%'})}>{match.fixture.showings.length > 0 ? (<span key={`${i}.${j}full`}><span key={`${i}.${j}mvl`}>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span key={`${i}.${j}.${k}fulllink`}><a key={`${i}.${j}.${k}link`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/55}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/55}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/55)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/55}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank" rel="noreferrer">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span key={`${i}.${j}.${k},`}>, </span>) : (<span></span>)}</span>)})}</span>) : (<span key={`${i}.${j}nmvlf`}>No Match Viewing Locations Found</span>)}</p>
                                                             </motion.div>
                                                         )}
                                                         <motion.div key={`${i}+${i}.${j}+${monthIndex}`} className={match.isNextFixture ? monthsByThirds[months[monthIndex]+"Count"] > 6 ? "smallNextMatch" : "nextMatch" : ""} style={match.isNextFixture ? (match.fixture.homeTeam.name === "Spurs" ? nextHomeMatchBoxStyleMobile : nextAwayMatchBoxStyleMobile) : (match.fixture.homeTeam.name === "Spurs" ? homeMatchBoxStyleMobile : awayMatchBoxStyleMobile) }
@@ -347,7 +345,7 @@ function Matches() {
                                                         exit={{opacity: 0, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}
                                                         initial={{opacity: 0, }}
                                                         animate={{opacity: 1, transition: {duration: 1, delay: (i*2.8 + j*.7)/monthsByThirds[months[monthIndex]+"Count"]}}}>
-                                                            <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/53)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/53}px`, marginBottom:'0'})}>{match.fixture.showings.length > 0 ? (<span key={`${i}.${j}full`}><span key={`${i}.${j}mvl`}>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span key={`${i}.${j}.${k}fulllink`}><a key={`${i}.${j}.${k}link`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/53)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/53}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span key={`${i}.${j}.${k},`}>, </span>) : (<span></span>)}</span>)})}</span>) : (<span key={`${i}.${j}nmvlf`}>No Match Viewing Locations Found</span>)}</p>
+                                                            <p className="matchShowingsText" style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/53)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/53}px`, marginBottom:'0'})}>{match.fixture.showings.length > 0 ? (<span key={`${i}.${j}full`}><span key={`${i}.${j}mvl`}>Match Viewing Locations: </span>{match.fixture.showings.map(function(showing, k) {return(<span key={`${i}.${j}.${k}fulllink`}><a key={`${i}.${j}.${k}link`} style={monthsByThirds[months[monthIndex]+"Count"] > 6 ? (match.isNextFixture ? {fontSize:`${windowSize.innerHeight/70}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/70}px`, color:'#ffffff', marginBottom:'0'}) : (match.isNextFixture ? {fontSize:`${(windowSize.innerHeight/53)}px`, color:'#132257'} :{fontSize:`${windowSize.innerHeight/53}px`, color:'#ffffff', marginBottom:'0'})} href={showing === "The Whit's End" ? (whitsEndLink) : (caskCadesLink)} target="_blank" rel="noreferrer">{showing}</a>{k < match.fixture.showings.length - 1 ? (<span key={`${i}.${j}.${k},`}>, </span>) : (<span></span>)}</span>)})}</span>) : (<span key={`${i}.${j}nmvlf`}>No Match Viewing Locations Found</span>)}</p>
                                                         </motion.div>
                                                     )}
                                                     <motion.div key={`${i}+${i}.${j}+${monthIndex}`} className={match.isNextFixture ? monthsByThirds[months[monthIndex]+"Count"] > 6 ? "smallNextMatch" : "nextMatch" : ""} style={match.isNextFixture ? (match.fixture.homeTeam.name === "Spurs" ? nextHomeMatchBoxStyle : nextAwayMatchBoxStyle) : (match.fixture.homeTeam.name === "Spurs" ? homeMatchBoxStyle : awayMatchBoxStyle) }
