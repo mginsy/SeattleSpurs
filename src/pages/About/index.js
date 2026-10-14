@@ -88,7 +88,14 @@ function About() {
           );
 
         map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
-    });
+
+        return () => {
+            map.current.remove();
+            map.current = null;
+        };
+    // Create the map once on mount; later zoom changes shouldn't rebuild it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     
     if (isMobile){
         return (
